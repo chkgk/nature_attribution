@@ -1,0 +1,128 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+    Quiz (1/2)
+{% endblock %}
+
+{% block styles %}
+    <style type="text/css">
+        .correct {
+            color: #339966;
+        }
+        .incorrect {
+            color: #ff0000;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+    <div align="center">
+        <img width="70%" src="{% static 'noa_shared/room_diagram_quiz.png' %}">
+    </div>
+    <p>
+        Welcome to the quiz. <br>
+        Here you have the chance to check whether you have properly understood the rules of the game. Please answer the following questions.
+    </p>
+
+    {% if player.cc_treatment %}
+        1. Which of the following is correct? In the first round and in the second round, my co-players are
+        <ul id="id_c1_coplayer">
+            <li>
+                <label for="id_c1_coplayer_0"><input type="radio" name="c1_coplayer" value="1" required id="id_c1_coplayer_0" class="form-check-input">other human participants.</label>
+            </li>
+            <li>
+                <label for="id_c1_coplayer_1"><input type="radio" name="c1_coplayer" value="2" required id="id_c1_coplayer_1" class="form-check-input">computers.</label>
+            </li>
+        </ul>
+        
+    {% else %}
+        1. Which of the following is correct? In the first round and in the second round, my co-player is
+        <ul id="id_c1_coplayer">
+            <li>
+                <label for="id_c1_coplayer_0"><input type="radio" name="c1_coplayer" value="1" required id="id_c1_coplayer_0" class="form-check-input">the same participant in both rounds.</label>
+            </li>
+            <li>
+                <label for="id_c1_coplayer_1"><input type="radio" name="c1_coplayer" value="2" required id="id_c1_coplayer_1" class="form-check-input">a different participant in each round.</label>
+            </li>
+        </ul>
+    {% endif %}
+    <div class="form-control-errors">
+        {{ form.c1_coplayer.errors }}
+    </div>
+    {% if page == 2 %}
+        {% if c1_ok %}
+            <p class="correct">Correct!</p>
+        {% else %}
+            <p>
+                <span class="incorrect">Wrong! Please read this part of the instructions again and correct your answer:</span><br/>
+                <em>
+                    {% if player.nc_treatment %}
+                        First, you take a small quiz about the game.<br>
+                        Then you are matched with a co-player, which is a computer, and the first round of the game is played. <br>
+                        Thereafter, you are matched anew with a computer co-player and the second round of the game is played.<br>
+                        Finally, you are asked to fill out a short survey.
+                    {% else %}
+                        First, you take a small quiz about the game.<br>
+                        Then you are matched with another participant and the first round of the game is played.<br>
+                        Thereafter, you are matched with a different participant and the second round of the game is played.<br>
+                        Finally, you are asked to fill out a short survey.
+                    {% endif %}
+                </em>
+            </p>
+        {% endif %}
+    {% endif %}
+    <hr/>
+
+    {{ form.c2_probabilities.label }}
+    {{ form.c2_probabilities }}
+    <div class="form-control-errors">
+        {{ form.c2_probabilities.errors }}
+    </div>
+    {% if page == 2 %}
+        {% if c2_ok %}
+            <p class="correct">Correct!</p>
+        {% else %}
+            <p>
+                <span class="incorrect">Wrong! Please read this part of the instructions again and correct your answer:</span><br/>
+                <em>
+                    In a previous experiment, the co-players’ action was A in about 60 out of 100 cases and B in about 40 out of 100 cases.
+                </em>
+            </p>
+        {% endif %}
+    {% endif %}
+    <hr/>
+
+    {{ form.c3_decision_importance.label }}
+    {{ form.c3_decision_importance }}
+    <div class="form-control-errors">
+        {{ form.c3_decision_importance.errors }}
+    </div>
+    {% if page == 2 %}
+        {% if c3_ok %}
+            <p class="correct">Correct!</p>
+        {% else %}
+            <p><span class="incorrect">Wrong! Please read this part of the instructions again and correct your answer:</span><br/>
+            <em>
+                Note that only one of the two rounds will be selected for payment at random. As it is unknown which of the two rounds counts, it is important to pay equally close attention to both.
+            </em></p>
+        {% endif %}
+    {% endif %}
+
+    {% next_button %}
+
+{% endblock %}
+
+{% block scripts %}
+    <script type="text/javascript">
+        var page = {{ page|json }};
+        var c1_ok = {{ c1_ok|json }};
+        var c2_ok = {{ c2_ok|json }};
+        var c3_ok = {{ c3_ok|json }};
+
+        // if not all ok, relabel next button
+        if (!(c1_ok && c2_ok && c3_ok)) {
+            $(".otree-btn-next").html('check answers');
+        }
+    </script>
+{% endblock %}
