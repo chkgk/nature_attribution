@@ -8,6 +8,12 @@ SESSION_CONFIGS = [
         app_sequence=['noa_intro'],
         treatment='RA'  # RA, AA, CC_RA, CC_AA, RA_NC, AA_NC, RA_NC_WTP, AA_NC_WTP, CC_RA_NC_WTP, CC_AA_NC_WTP
     ),
+    dict(
+        name='noa_room1',
+        display_name="NoA Room1",
+        num_demo_participants=2,
+        app_sequence=['noa_room1'],
+    ),
 ]
 
 # if you set a property in SESSION_CONFIG_DEFAULTS, it will be inherited by all configs

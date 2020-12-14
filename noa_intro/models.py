@@ -75,7 +75,7 @@ class Group(BaseGroup):
         'AA_NC_WTP',
         'CC_RA_NC_WTP',
         'CC_AA_NC_WTP'
-    ], 
+    ],
     initial='RA')
 
 

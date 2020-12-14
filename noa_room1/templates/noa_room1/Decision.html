@@ -1,0 +1,37 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+    First Round
+{% endblock %}
+
+{% block content %}
+
+    <div align="center">
+        <img src="{% static 'noa_shared/room_diagram_first_round.png' %}" height="150">
+    </div>
+    <p>
+        Welcome to the first round of the game.
+    </p>
+    <p>
+        You are now a player in this game, where you can earn money if this round is selected for payout.
+    </p>
+    <p>
+        {% if player.cc_treatment %}
+            You are matched with a computer, your co-player for this round. Your co-player will choose an action, A or B, and a ball, red or green, will be drawn.
+        {% else %}
+            You are matched with another participant, your co-player for this round. Your co-player will choose an action, A or B, and a ball, red or green, will be drawn.
+        {% endif %}
+    </p>
+
+    {% if player.ra_treatment %}
+        {% formfield player.action1_b %}
+    {% else %}
+        In this round, your action, A or B, is <b>assigned</b> to you.
+    {% endif %}
+
+    {% next_button %}
+
+    {% include "noa_shared/ShortInstructions.html" %}
+
+{% endblock %}
