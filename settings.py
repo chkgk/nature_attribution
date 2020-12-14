@@ -14,6 +14,12 @@ SESSION_CONFIGS = [
         num_demo_participants=2,
         app_sequence=['noa_room1'],
     ),
+    dict(
+        name='noa_outro',
+        display_name="NoA Outro",
+        num_demo_participants=2,
+        app_sequence=['noa_outro'],
+    )
 ]
 
 # if you set a property in SESSION_CONFIG_DEFAULTS, it will be inherited by all configs
@@ -33,7 +39,7 @@ LANGUAGE_CODE = 'en'
 
 # e.g. EUR, GBP, CNY, JPY
 REAL_WORLD_CURRENCY_CODE = 'USD'
-USE_POINTS = True
+USE_POINTS = False
 
 ADMIN_USERNAME = 'admin'
 # for security, best to set admin password in an environment variable

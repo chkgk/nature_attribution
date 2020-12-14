@@ -11,9 +11,9 @@ import random
 
 author = 'Christian König gen. Kersting'
 
-doc = """
+doc = '''
 Intro App for Nature of Attribution Project
-"""
+'''
 
 
 class Constants(BaseConstants):
@@ -55,12 +55,13 @@ class Subsession(BaseSubsession):
             player.payment_room_1 = random.choice([True, False])
 
             # also set them on the participant, so we can use them in other apps
-            player.participant.vars["aa_treatment"] = aa_treatment
-            player.participant.vars["ra_treatment"] = ra_treatment
-            player.participant.vars["cc_treatment"] = cc_treatment
-            player.participant.vars["nc_treatment"] = nc_treatment
-            player.participant.vars["wtp_treatment"] = wtp_treatment
-            player.participant.vars["payment_room_1"] = player.payment_room_1
+            player.participant.vars['aa_treatment'] = aa_treatment
+            player.participant.vars['ra_treatment'] = ra_treatment
+            player.participant.vars['cc_treatment'] = cc_treatment
+            player.participant.vars['nc_treatment'] = nc_treatment
+            player.participant.vars['wtp_treatment'] = wtp_treatment
+            player.participant.vars['payment_room_1'] = player.payment_room_1
+            player.participant.vars['vars_set'] = True
 
 
 class Group(BaseGroup):
@@ -111,26 +112,26 @@ class Player(BasePlayer):
         choices=[[1, 'US$ 0'],
                  [2, 'US$ 1'],
                  [3, 'US$ 3']],
-        label="4. What is your payout if your action is A, your co-player’s action is B, and the ball is red?",
+        label='4. What is your payout if your action is A, your co-player’s action is B, and the ball is red?',
         widget=widgets.RadioSelect)
 
     c5_payoff_ab_green = models.IntegerField(
         choices=[[1, 'US $ 0'],
                  [2, 'US $ 1'],
                  [3, 'US $ 3']],
-        label="5. What is your payout if your action is A, your co-player’s action is B, and the ball is green?",
+        label='5. What is your payout if your action is A, your co-player’s action is B, and the ball is green?',
         widget=widgets.RadioSelect)
 
     c6_payoff_bb_green = models.IntegerField(
         choices=[[1, 'US $ 0'],
                  [2, 'US $ 1'],
                  [3, 'US $ 3']],
-        label="6. What is your payout if your action is B, your co-player’s action is B, and the ball is green?",
+        label='6. What is your payout if your action is B, your co-player’s action is B, and the ball is green?',
         widget=widgets.RadioSelect)
 
     c7_payoff_ba_green = models.IntegerField(
         choices=[[1, 'US $ 0'],
                  [2, 'US $ 1'],
                  [3, 'US $ 3']],
-        label="7. What is your payout if your action is B, your co-player’s action is A, and the ball is green?",
+        label='7. What is your payout if your action is B, your co-player’s action is A, and the ball is green?',
         widget=widgets.RadioSelect)
