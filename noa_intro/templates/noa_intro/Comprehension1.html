@@ -24,15 +24,15 @@
         Welcome to the quiz. <br>
         Here you have the chance to check whether you have properly understood the rules of the game. Please answer the following questions.
     </p>
-
+    
     {% if player.cc_treatment %}
         1. Which of the following is correct? In the first round and in the second round, my co-players are
         <ul id="id_c1_coplayer">
             <li>
-                <label for="id_c1_coplayer_0"><input type="radio" name="c1_coplayer" value="1" required id="id_c1_coplayer_0" class="form-check-input">other human participants.</label>
+                <label for="id_c1_coplayer_0"><input type="radio" name="c1_coplayer" value="1" required id="id_c1_coplayer_0" class="form-check-input" {% if form.c1_coplayer.value == 1 %}checked="checked"{% endif %}>other human participants.</label>
             </li>
             <li>
-                <label for="id_c1_coplayer_1"><input type="radio" name="c1_coplayer" value="2" required id="id_c1_coplayer_1" class="form-check-input">computers.</label>
+                <label for="id_c1_coplayer_1"><input type="radio" name="c1_coplayer" value="2" required id="id_c1_coplayer_1" class="form-check-input" {% if form.c1_coplayer.value == 2 %}checked="checked"{% endif %}>computers.</label>
             </li>
         </ul>
         
@@ -40,10 +40,10 @@
         1. Which of the following is correct? In the first round and in the second round, my co-player is
         <ul id="id_c1_coplayer">
             <li>
-                <label for="id_c1_coplayer_0"><input type="radio" name="c1_coplayer" value="1" required id="id_c1_coplayer_0" class="form-check-input">the same participant in both rounds.</label>
+                <label for="id_c1_coplayer_0"><input type="radio" name="c1_coplayer" value="1" required id="id_c1_coplayer_0" class="form-check-input" {% if form.c1_coplayer.value == 1 %}checked="checked"{% endif %}>the same participant in both rounds.</label>
             </li>
             <li>
-                <label for="id_c1_coplayer_1"><input type="radio" name="c1_coplayer" value="2" required id="id_c1_coplayer_1" class="form-check-input">a different participant in each round.</label>
+                <label for="id_c1_coplayer_1"><input type="radio" name="c1_coplayer" value="2" required id="id_c1_coplayer_1" class="form-check-input" {% if form.c1_coplayer.value == 2 %}checked="checked"{% endif %}>a different participant in each round.</label>
             </li>
         </ul>
     {% endif %}
