@@ -8,9 +8,6 @@ class TreatmentSelection(Page):
     form_fields = ['debug_treatment']
 
     def is_displayed(self):
-        print('debug', self.is_debug)
-        print('id', self.player.id_in_subsession)
-        print('vars', not self.player.participant.vars.get('vars_set', True))
         return self.is_debug and self.player.id_in_subsession == 1 and not self.player.participant.vars.get('vars_set', False)
 
     def before_next_page(self):

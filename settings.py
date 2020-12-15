@@ -25,7 +25,13 @@ SESSION_CONFIGS = [
         display_name="NoA Outro",
         num_demo_participants=2,
         app_sequence=['noa_outro'],
-    )
+    ),
+    dict(
+        name='noa_complete',
+        display_name="NoA Complete",
+        num_demo_participants=2,
+        app_sequence=['noa_intro', 'noa_room1', 'noa_room2', 'noa_outro'],
+    ),
 ]
 
 # if you set a property in SESSION_CONFIG_DEFAULTS, it will be inherited by all configs

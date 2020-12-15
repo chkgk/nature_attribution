@@ -34,8 +34,9 @@ class Constants(BaseConstants):
 
 class Subsession(BaseSubsession):
     def creating_session(self):
-        treatment = self.session.config.get('treatment')
-        self.set_treatment_vars(treatment)
+        treatment = self.session.config.get('treatment', None)
+        if treatment:
+            self.set_treatment_vars(treatment)
 
     def set_treatment_vars(self, treatment):
         # determine the treatment indicators for the session
