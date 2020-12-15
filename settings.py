@@ -15,6 +15,12 @@ SESSION_CONFIGS = [
         app_sequence=['noa_room1'],
     ),
     dict(
+        name='noa_room2',
+        display_name="NoA Room2",
+        num_demo_participants=2,
+        app_sequence=['noa_room2'],
+    ),
+    dict(
         name='noa_outro',
         display_name="NoA Outro",
         num_demo_participants=2,

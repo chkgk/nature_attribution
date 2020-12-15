@@ -12,7 +12,7 @@
 
 {% block content %}
     <div align="center">
-        <img src="{% static 'noa_shared/room_diagram_first_round.png' %}" height="150">
+        <img src="{% static 'noa_shared/room_diagram_second_round.png' %}" height="150">
         <p>
             What is your gut feeling - did your co-player just choose:
         </p>
@@ -27,7 +27,7 @@
                 A
             </td>
             <td align="center" width="410">
-                <input id="id_a_or_b_r1" name="a_or_b_r1" type="text" data-slider-min="0" data-slider-max="100" data-slider-step="1" data-slider-value="50"/>
+                <input id="id_a_or_b_r2" name="a_or_b_r2" type="text" data-slider-min="0" data-slider-max="100" data-slider-step="1" data-slider-value="50"/>
             </td>
             <td align="left" width="250">
                B
@@ -43,7 +43,7 @@
 {% block scripts %}
     <script src="{% static "noa_shared/bootstrap-slider.min.js" %}"></script>
     <script type="text/javascript">
-        $("#id_a_or_b_r1").slider();
+        $("#id_a_or_b_r2").slider();
         $('.otree-btn-next').hide();
         $('.slider-handle').hide();
         $('.slider').on('mousedown', function (event) {

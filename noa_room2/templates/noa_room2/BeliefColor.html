@@ -12,7 +12,7 @@
 
 {% block content %}
     <div align="center">
-        <img src="{% static 'noa_shared/room_diagram_first_round.png' %}" height="150">
+        <img src="{% static 'noa_shared/room_diagram_second_round.png' %}" height="150">
         <p>
             What is your gut feeling - is the color of the ball that was just drawn:
         </p>
@@ -26,7 +26,7 @@
                 <span class="green">green</span>
             </td>
             <td align="center" width="410">
-                <input id="id_green_red_r1" name="green_red_r1" type="text" data-slider-min="0" data-slider-max="100" data-slider-step="1" data-slider-value="50"/>
+                <input id="id_green_red_r2" name="green_red_r2" type="text" data-slider-min="0" data-slider-max="100" data-slider-step="1" data-slider-value="50"/>
             </td>
             <td align="left" width="250">
                 <span class="red">red</span>
@@ -43,7 +43,7 @@
 {% block scripts %}
     <script src="{% static "noa_shared/bootstrap-slider.min.js" %}"></script>
     <script type="text/javascript">
-        $("#id_green_red_r1").slider();
+        $("#id_green_red_r2").slider();
         $('.otree-btn-next').hide();
         $('.slider-handle').hide();
         $('.slider').on('mousedown', function (event) {

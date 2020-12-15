@@ -8,52 +8,33 @@ class TreatmentSelection(Page):
     form_fields = ['debug_treatment']
 
     def is_displayed(self):
+        print('debug', self.is_debug)
+        print('id', self.player.id_in_subsession)
+        print('vars', not self.player.participant.vars.get('vars_set', True))
         return self.is_debug and self.player.id_in_subsession == 1 and not self.player.participant.vars.get('vars_set', False)
 
     def before_next_page(self):
         self.subsession.set_treatment_vars(self.group.debug_treatment)
 
 
-class ActionPreference(Page):
-    form_model = 'player'
-    form_fields = ["prefers_b"]
-
-    def is_displayed(self):
-        return self.player.aa_treatment
-
-
 class Decision(Page):
     form_model = 'player'
-
-    def get_form_fields(self):
-        return ['action1_b'] if self.player.ra_treatment else []
-
-    def before_next_page(self):
-        if self.player.aa_treatment:
-            self.player.action1_b = True
-        self.player.participant.vars["action1_b"] = self.player.action1_b
-
-
-class DecisionAssignment(Page):
-    def is_displayed(self):
-        return self.player.aa_treatment
+    form_fields = ['action2_b']
 
 
 class BeliefColor(Page):
     form_model = 'player'
-    form_fields = ['green_red_r1']
+    form_fields = ['green_red_r2']
 
 
 class BeliefOther(Page):
     form_model = 'player'
-    form_fields = ['a_or_b_r1']
+    form_fields = ['a_or_b_r2']
 
 
 page_sequence = [
     TreatmentSelection,
-    ActionPreference,
     Decision,
-    DecisionAssignment,
     BeliefColor,
     BeliefOther
 ]
