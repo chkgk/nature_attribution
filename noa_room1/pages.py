@@ -22,7 +22,6 @@ class ActionPreference(Page):
         return self.player.aa_treatment
 
 
-
 class Decision(Page):
     form_model = 'player'
 
@@ -40,12 +39,12 @@ class DecisionAssignment(Page):
         return self.player.aa_treatment
 
 
-class Belief_color(Page):
+class BeliefColor(Page):
     form_model = 'player'
     form_fields = ['green_red_r1']
 
 
-class Belief_other(Page):
+class BeliefOther(Page):
     form_model = 'player'
     form_fields = ['a_or_b_r1']
 
@@ -55,6 +54,6 @@ page_sequence = [
     ActionPreference,
     Decision,
     DecisionAssignment,
-    Belief_color,
-    Belief_other
+    BeliefColor,
+    BeliefOther
 ]
