@@ -15,6 +15,18 @@ SESSION_CONFIGS = [
         app_sequence=['noa_room1'],
     ),
     dict(
+        name='noa_room1_feedback',
+        display_name="NoA Room1 Feedback",
+        num_demo_participants=2,
+        app_sequence=['noa_room1_feedback'],
+    ),
+    dict(
+        name='noa_room1_plus_feedback',
+        display_name="NoA Room1 + Feedback",
+        num_demo_participants=2,
+        app_sequence=['noa_room1', 'noa_room1_feedback'],
+    ),
+    dict(
         name='noa_room2',
         display_name="NoA Room2",
         num_demo_participants=2,

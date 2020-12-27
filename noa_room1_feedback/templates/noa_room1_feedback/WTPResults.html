@@ -1,0 +1,34 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+    First round: Results
+{% endblock %}
+
+{% block content %}
+    <div align="center">
+        <img src="{% static 'noa_shared/room_diagram_first_round.png' %}" height="150">
+    </div>
+    
+    {% if player.info_bought %}
+        <p>
+            The amount you were willing to pay at most was more than the randomly determined price of {{ player.info_price }}. You find out which action your co-player took and the color of the ball that was drawn. The price of {{ player.info_price }} will be deducted from your bonus.
+        </p>
+        <p>
+            Your action was <b>{{ own_action }}</b>.<br>
+            Your co-player's action was <b>{{ others_action }}</b>.<br>
+            The ball drawn from the urn was <b>{{ ball_color }}</b>.
+        </p>
+    {% else %}
+        <p>
+            The amount you were willing to pay at most was less than the randomly determined price of {{ player.info_price }}. You do not find out which action your co-player took and the color of the ball that was drawn. No money will be deducted from your bonus.
+        </p>
+    {% endif %}
+    
+    <p>
+        As a result, you earned <b>{{ room_payoff }}</b> if this round is selected for payment.
+    </p>
+    
+    <p>Please click ‘next’ to continue.</p>
+    {% next_button %}
+{% endblock %}
