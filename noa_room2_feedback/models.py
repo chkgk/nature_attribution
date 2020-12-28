@@ -53,7 +53,7 @@ class Subsession(BaseSubsession):
     def group_by_arrival_time_method(self, waiting_players):
         # set treatment vars if not done so already
         if not self.treatment_vars_set:
-            for p in waiting_players:
+            for p in self.get_players():
                 p.set_treatment_vars()
             self.treatment_vars_set = True
 
@@ -144,7 +144,6 @@ class Player(BasePlayer):
             self.payoff = self.participant.vars.get('room_payoff_1', 0)
         else:
             self.payoff = self.participant.vars.get('room_payoff_2', 0)
-
 
     def set_treatment_vars(self):
         self.aa_treatment = self.participant.vars.get('aa_treatment', False)

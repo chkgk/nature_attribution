@@ -48,7 +48,15 @@ class Constants(BaseConstants):
 
 
 class Subsession(BaseSubsession):
+    treatment_vars_set = models.BooleanField(initial=False)
+
     def group_by_arrival_time_method(self, waiting_players):
+        # set treatment vars if not done so already
+        if not self.treatment_vars_set:
+            for p in self.get_players():
+                p.set_treatment_vars()
+            self.treatment_vars_set = True
+
         # immediately advance players in the CC treatment
         if waiting_players:
             if waiting_players[0].cc_treatment:

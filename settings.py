@@ -49,6 +49,7 @@ SESSION_CONFIGS = [
         display_name="NoA Complete",
         num_demo_participants=4,
         app_sequence=['noa_intro', 'noa_room1', 'noa_room1_feedback', 'noa_room2', 'noa_room2_feedback', 'noa_outro'],
+        treatment='CC_RA'  # RA, AA, CC_RA, CC_AA, RA_NC, AA_NC, RA_NC_WTP, AA_NC_WTP, CC_RA_NC_WTP, CC_AA_NC_WTP
     ),
 ]
 

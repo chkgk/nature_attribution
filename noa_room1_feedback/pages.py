@@ -17,9 +17,6 @@ class GroupMatching(WaitPage):
         return dict()
 
     def after_all_players_arrive(self):
-        if len(self.group.get_players()) == 1:
-            return
-
         self.group.draw_ball()
         for player in self.group.get_players():
             player.set_partner_action()
