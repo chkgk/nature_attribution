@@ -17,6 +17,9 @@ class Survey(Page):
     form_model = 'player'
     form_fields = ['age', 'gender', 'education', 'major', 'risk']
 
+    def is_displayed(self):
+        return not self.participant.vars.get('dropout', False)
+
     def error_message(self, values):
         if values['education'] >= 2 and (values['major'] == ' ' or values['major'] is None):
             return 'Please indicate your major.'
@@ -31,7 +34,8 @@ class LastPage(Page):
             'info_price': self.player.participant.vars.get('info_price', c(0)),
             'wtp_bonus': self.player.participant.vars.get('wtp_bonus', c(0.5)),
             'experimenter_name': self.session.config.get('experimenter_name', 'Christian Koenig'),
-            'experimenter_email': self.session.config.get('experimenter_email', 'christian.koenig@uibk.ac.at')
+            'experimenter_email': self.session.config.get('experimenter_email', 'christian.koenig@uibk.ac.at'),
+            'dropout': self.participant.vars.get('dropout', False)
         }
 
 

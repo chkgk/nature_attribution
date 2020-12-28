@@ -57,6 +57,11 @@ class Subsession(BaseSubsession):
                 p.set_treatment_vars()
             self.treatment_vars_set = True
 
+        # immediately advance players in the CC treatment
+        for wp in waiting_players:
+            if wp.cc_treatment:
+                return [wp]
+
         # make sure to advance dropped out players immediately
         for wp in waiting_players:
             if wp.participant.vars.get('dropout', False):

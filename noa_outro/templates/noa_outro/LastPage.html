@@ -5,26 +5,45 @@
     Completed
 {% endblock %}
 
+{% block styles %}
+    <style type="text/css">
+        #code {
+            font-family: monospace;
+            font-weight: bold;
+            font-size: 1.5em;
+        }
+    </style>
+{% endblock %}
+
 {% block content %}
     <p>
         Thank you for your participation, your answers were transmitted.
     </p>
-    <p>
-        Round {{ payment_room }} was randomly selected for payout, where you earned {{ payment }}. 
-    </p>
-    {% if player.wtp_treatment %}
-        {% if info_bought %}
-            <p>
-                You started out with a bonus of $0.50. You paid {{ info_price }} for finding out the action of your co-player and the urn draw in round 1, leaving you with {{ wtp_bonus }}.
-            </p>
-        {% else %}
-            <p>
-                You kept your starting bonus of {{ wtp_bonus }}.
-            </p>
+    {% if dropout %}
+        <p>
+            Unfortunately, we could not find a co-player in time. To not keep you waiting any longer, we have ended the study early.
+        </p>
+    {% else %}
+        <p>
+            Round {{ payment_room }} was randomly selected for payout, where you earned {{ payment }}. 
+        </p>
+        {% if player.wtp_treatment %}
+            {% if info_bought %}
+                <p>
+                    You started out with a bonus of $0.50. You paid {{ info_price }} for finding out the action of your co-player and the urn draw in round 1, leaving you with {{ wtp_bonus }}.
+                </p>
+            {% else %}
+                <p>
+                    You kept your starting bonus of {{ wtp_bonus }}.
+                </p>
+            {% endif %}
         {% endif %}
     {% endif %}
     <p>
         In total, you receive: <b>{{ player.participant.payoff_plus_participation_fee }}</b>.
+    </p>
+    <p>
+        Please enter the following code on Amazon Mechanical Turk to get your payment: <span id="code">NoA2021</span>
     </p>
     <p>
         If you have any questions regarding this study, please write an email to {{ experimenter_name }}:

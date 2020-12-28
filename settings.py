@@ -47,7 +47,7 @@ SESSION_CONFIGS = [
     dict(
         name='noa_complete',
         display_name="NoA Complete",
-        num_demo_participants=2,
+        num_demo_participants=4,
         app_sequence=['noa_intro', 'noa_room1', 'noa_room1_feedback', 'noa_room2', 'noa_room2_feedback', 'noa_outro'],
     ),
 ]
@@ -59,7 +59,7 @@ SESSION_CONFIGS = [
 
 SESSION_CONFIG_DEFAULTS = dict(
     real_world_currency_per_point=1.00,
-    participation_fee=0.00,
+    participation_fee=0.50,
     doc=""
 )
 

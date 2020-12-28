@@ -28,7 +28,7 @@ class Constants(BaseConstants):
 
     ball_green_probability = 0.8
     action_b_probability = 0.4
-    
+
     max_price = 0.5
     min_price = 0.0
 
@@ -49,6 +49,11 @@ class Constants(BaseConstants):
 
 class Subsession(BaseSubsession):
     def group_by_arrival_time_method(self, waiting_players):
+        # immediately advance players in the CC treatment
+        if waiting_players:
+            if waiting_players[0].cc_treatment:
+                return [waiting_players[0]]
+
         if len(waiting_players) >= 2:
             group = waiting_players[:2]
 
