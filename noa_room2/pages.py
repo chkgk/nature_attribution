@@ -18,6 +18,9 @@ class Decision(Page):
     form_model = 'player'
     form_fields = ['action2_b']
 
+    def before_next_page(self):
+        self.player.participant.vars["action2_b"] = self.player.action2_b
+
 
 class BeliefColor(Page):
     form_model = 'player'

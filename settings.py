@@ -15,12 +15,6 @@ SESSION_CONFIGS = [
         app_sequence=['noa_room1'],
     ),
     dict(
-        name='noa_room1_feedback',
-        display_name="NoA Room1 Feedback",
-        num_demo_participants=2,
-        app_sequence=['noa_room1_feedback'],
-    ),
-    dict(
         name='noa_room1_plus_feedback',
         display_name="NoA Room1 + Feedback",
         num_demo_participants=2,
@@ -33,6 +27,18 @@ SESSION_CONFIGS = [
         app_sequence=['noa_room2'],
     ),
     dict(
+        name='noa_room2_plus_feedback',
+        display_name="NoA Room2 + Feedback",
+        num_demo_participants=2,
+        app_sequence=['noa_room2', 'noa_room2_feedback'],
+    ),
+    dict(
+        name='noa_rooms_plus_feedback',
+        display_name="NoA Room 1 + Feedback, Room 2 + Feedback",
+        num_demo_participants=4,
+        app_sequence=['noa_room1', 'noa_room1_feedback', 'noa_room2', 'noa_room2_feedback'],
+    ),
+    dict(
         name='noa_outro',
         display_name="NoA Outro",
         num_demo_participants=2,
@@ -42,7 +48,7 @@ SESSION_CONFIGS = [
         name='noa_complete',
         display_name="NoA Complete",
         num_demo_participants=2,
-        app_sequence=['noa_intro', 'noa_room1', 'noa_room2', 'noa_outro'],
+        app_sequence=['noa_intro', 'noa_room1', 'noa_room1_feedback', 'noa_room2', 'noa_room2_feedback', 'noa_outro'],
     ),
 ]
 
