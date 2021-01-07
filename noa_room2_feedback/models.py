@@ -48,15 +48,17 @@ class Constants(BaseConstants):
 
 
 class Subsession(BaseSubsession):
-    treatment_vars_set = models.BooleanField(initial=False)
+    def creating_session(self):
+        for player in self.get_players():
+            # set all variables on the player so that they are included in exports
+            player.aa_treatment = self.session.vars['aa_treatment']
+            player.ra_treatment = self.session.vars['ra_treatment']
+            player.cc_treatment = self.session.vars['cc_treatment']
+            player.nc_treatment = self.session.vars['nc_treatment']
+            player.wtp_treatment = self.session.vars['wtp_treatment']
+            player.payment_room_1 = self.session.vars['payment_room_1']
 
     def group_by_arrival_time_method(self, waiting_players):
-        # set treatment vars if not done so already
-        if not self.treatment_vars_set:
-            for p in self.get_players():
-                p.set_treatment_vars()
-            self.treatment_vars_set = True
-
         # immediately advance players in the CC treatment
         for wp in waiting_players:
             if wp.cc_treatment:
@@ -144,11 +146,3 @@ class Player(BasePlayer):
             self.payoff = self.participant.vars.get('room_payoff_1', 0)
         else:
             self.payoff = self.participant.vars.get('room_payoff_2', 0)
-
-    def set_treatment_vars(self):
-        self.aa_treatment = self.participant.vars.get('aa_treatment', False)
-        self.ra_treatment = self.participant.vars.get('ra_treatment', False)
-        self.cc_treatment = self.participant.vars.get('cc_treatment', False)
-        self.nc_treatment = self.participant.vars.get('nc_treatment', False)
-        self.wtp_treatment = self.participant.vars.get('wtp_treatment', False)
-        self.payment_room_1 = self.participant.vars.get('payment_room_1', False)

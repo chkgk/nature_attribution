@@ -3,17 +3,6 @@ from ._builtin import Page, WaitPage
 from .models import Constants
 
 
-class TreatmentSelection(Page):
-    form_model = 'group'
-    form_fields = ['debug_treatment']
-
-    def is_displayed(self):
-        return self.is_debug and self.player.id_in_subsession == 1 and not self.player.participant.vars.get('vars_set', False)
-
-    def before_next_page(self):
-        self.subsession.set_treatment_vars(self.group.debug_treatment)
-
-
 class Decision(Page):
     form_model = 'player'
     form_fields = ['action2_b']
@@ -33,7 +22,6 @@ class BeliefOther(Page):
 
 
 page_sequence = [
-    TreatmentSelection,
     Decision,
     BeliefColor,
     BeliefOther

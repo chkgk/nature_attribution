@@ -1,55 +1,117 @@
 from os import environ
 
 SESSION_CONFIGS = [
+    # dict(
+    #     name='noa_intro',
+    #     display_name="NoA Intro",
+    #     num_demo_participants=2,
+    #     app_sequence=['noa_intro'],
+    # ),
+    # dict(
+    #     name='noa_room1',
+    #     display_name="NoA Room1",
+    #     num_demo_participants=2,
+    #     app_sequence=['noa_room1'],
+    # ),
+    # dict(
+    #     name='noa_room1_plus_feedback',
+    #     display_name="NoA Room1 + Feedback",
+    #     num_demo_participants=2,
+    #     app_sequence=['noa_room1', 'noa_room1_feedback'],
+    # ),
+    # dict(
+    #     name='noa_room2',
+    #     display_name="NoA Room2",
+    #     num_demo_participants=2,
+    #     app_sequence=['noa_room2'],
+    # ),
+    # dict(
+    #     name='noa_room2_plus_feedback',
+    #     display_name="NoA Room2 + Feedback",
+    #     num_demo_participants=2,
+    #     app_sequence=['noa_room2', 'noa_room2_feedback'],
+    # ),
+    # dict(
+    #     name='noa_rooms_plus_feedback',
+    #     display_name="NoA Room 1 + Feedback, Room 2 + Feedback",
+    #     num_demo_participants=4,
+    #     app_sequence=['noa_room1', 'noa_room1_feedback', 'noa_room2', 'noa_room2_feedback'],
+    # ),
+    # dict(
+    #     name='noa_outro',
+    #     display_name="NoA Outro",
+    #     num_demo_participants=2,
+    #     app_sequence=['noa_outro'],
+    # ),
     dict(
-        name='noa_intro',
-        display_name="NoA Intro",
-        num_demo_participants=2,
-        app_sequence=['noa_intro'],
+        name='noa_complete_RA',
+        display_name="NoA Complete RA",
+        num_demo_participants=4,
+        app_sequence=['noa_intro', 'noa_room1', 'noa_room1_feedback', 'noa_room2', 'noa_room2_feedback', 'noa_outro'],
         treatment='RA'  # RA, AA, CC_RA, CC_AA, RA_NC, AA_NC, RA_NC_WTP, AA_NC_WTP, CC_RA_NC_WTP, CC_AA_NC_WTP
     ),
     dict(
-        name='noa_room1',
-        display_name="NoA Room1",
-        num_demo_participants=2,
-        app_sequence=['noa_room1'],
-    ),
-    dict(
-        name='noa_room1_plus_feedback',
-        display_name="NoA Room1 + Feedback",
-        num_demo_participants=2,
-        app_sequence=['noa_room1', 'noa_room1_feedback'],
-    ),
-    dict(
-        name='noa_room2',
-        display_name="NoA Room2",
-        num_demo_participants=2,
-        app_sequence=['noa_room2'],
-    ),
-    dict(
-        name='noa_room2_plus_feedback',
-        display_name="NoA Room2 + Feedback",
-        num_demo_participants=2,
-        app_sequence=['noa_room2', 'noa_room2_feedback'],
-    ),
-    dict(
-        name='noa_rooms_plus_feedback',
-        display_name="NoA Room 1 + Feedback, Room 2 + Feedback",
+        name='noa_complete_AA',
+        display_name="NoA Complete AA",
         num_demo_participants=4,
-        app_sequence=['noa_room1', 'noa_room1_feedback', 'noa_room2', 'noa_room2_feedback'],
+        app_sequence=['noa_intro', 'noa_room1', 'noa_room1_feedback', 'noa_room2', 'noa_room2_feedback', 'noa_outro'],
+        treatment='AA'  # RA, AA, CC_RA, CC_AA, RA_NC, AA_NC, RA_NC_WTP, AA_NC_WTP, CC_RA_NC_WTP, CC_AA_NC_WTP
     ),
     dict(
-        name='noa_outro',
-        display_name="NoA Outro",
-        num_demo_participants=2,
-        app_sequence=['noa_outro'],
-    ),
-    dict(
-        name='noa_complete',
-        display_name="NoA Complete",
+        name='noa_complete_CC_RA',
+        display_name="NoA Complete CC_RA",
         num_demo_participants=4,
         app_sequence=['noa_intro', 'noa_room1', 'noa_room1_feedback', 'noa_room2', 'noa_room2_feedback', 'noa_outro'],
         treatment='CC_RA'  # RA, AA, CC_RA, CC_AA, RA_NC, AA_NC, RA_NC_WTP, AA_NC_WTP, CC_RA_NC_WTP, CC_AA_NC_WTP
+    ),
+    dict(
+        name='noa_complete_CC_AA',
+        display_name="NoA Complete CC_AA",
+        num_demo_participants=4,
+        app_sequence=['noa_intro', 'noa_room1', 'noa_room1_feedback', 'noa_room2', 'noa_room2_feedback', 'noa_outro'],
+        treatment='CC_AA'  # RA, AA, CC_RA, CC_AA, RA_NC, AA_NC, RA_NC_WTP, AA_NC_WTP, CC_RA_NC_WTP, CC_AA_NC_WTP
+    ),
+    dict(
+        name='noa_complete_RA_NC',
+        display_name="NoA Complete RA_NC",
+        num_demo_participants=4,
+        app_sequence=['noa_intro', 'noa_room1', 'noa_room1_feedback', 'noa_room2', 'noa_room2_feedback', 'noa_outro'],
+        treatment='RA_NC'  # RA, AA, CC_RA, CC_AA, RA_NC, AA_NC, RA_NC_WTP, AA_NC_WTP, CC_RA_NC_WTP, CC_AA_NC_WTP
+    ),
+    dict(
+        name='noa_complete_AA_NC',
+        display_name="NoA Complete AA_NC",
+        num_demo_participants=4,
+        app_sequence=['noa_intro', 'noa_room1', 'noa_room1_feedback', 'noa_room2', 'noa_room2_feedback', 'noa_outro'],
+        treatment='AA_NC'  # RA, AA, CC_RA, CC_AA, RA_NC, AA_NC, RA_NC_WTP, AA_NC_WTP, CC_RA_NC_WTP, CC_AA_NC_WTP
+    ),
+    dict(
+        name='noa_complete_RA_NC_WTP',
+        display_name="NoA Complete RA_NC_WTP",
+        num_demo_participants=4,
+        app_sequence=['noa_intro', 'noa_room1', 'noa_room1_feedback', 'noa_room2', 'noa_room2_feedback', 'noa_outro'],
+        treatment='RA_NC_WTP'  # RA, AA, CC_RA, CC_AA, RA_NC, AA_NC, RA_NC_WTP, AA_NC_WTP, CC_RA_NC_WTP, CC_AA_NC_WTP
+    ),
+    dict(
+        name='noa_complete_AA_NC_WTP',
+        display_name="NoA Complete AA_NC_WTP",
+        num_demo_participants=4,
+        app_sequence=['noa_intro', 'noa_room1', 'noa_room1_feedback', 'noa_room2', 'noa_room2_feedback', 'noa_outro'],
+        treatment='AA_NC_WTP'  # RA, AA, CC_RA, CC_AA, RA_NC, AA_NC, RA_NC_WTP, AA_NC_WTP, CC_RA_NC_WTP, CC_AA_NC_WTP
+    ),
+    dict(
+        name='noa_complete_CC_RA_NC_WTP',
+        display_name="NoA Complete CC_RA_NC_WTP",
+        num_demo_participants=4,
+        app_sequence=['noa_intro', 'noa_room1', 'noa_room1_feedback', 'noa_room2', 'noa_room2_feedback', 'noa_outro'],
+        treatment='CC_RA_NC_WTP'  # RA, AA, CC_RA, CC_AA, RA_NC, AA_NC, RA_NC_WTP, AA_NC_WTP, CC_RA_NC_WTP, CC_AA_NC_WTP
+    ),
+    dict(
+        name='noa_complete_CC_AA_NC_WTP',
+        display_name="NoA Complete CC_AA_NC_WTP",
+        num_demo_participants=4,
+        app_sequence=['noa_intro', 'noa_room1', 'noa_room1_feedback', 'noa_room2', 'noa_room2_feedback', 'noa_outro'],
+        # treatment='CC_AA_NC_WTP'  # RA, AA, CC_RA, CC_AA, RA_NC, AA_NC, RA_NC_WTP, AA_NC_WTP, CC_RA_NC_WTP, CC_AA_NC_WTP
     ),
 ]
 

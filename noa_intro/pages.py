@@ -2,16 +2,6 @@ from otree.api import Currency as c, currency_range
 from ._builtin import Page, WaitPage
 from .models import Constants
 
-class TreatmentSelection(Page):
-    form_model = 'group'
-    form_fields = ['debug_treatment']
-
-    def is_displayed(self):
-        return self.is_debug and self.player.id_in_subsession == 1
-
-    def before_next_page(self):
-        self.subsession.set_treatment_vars(self.group.debug_treatment)
-
 
 class Introduction(Page):
     pass
@@ -91,7 +81,6 @@ class ComprehensionCheck2(Page):
 
 
 page_sequence = [
-    TreatmentSelection,
     Introduction,
     Instructions,
     Comprehension1,

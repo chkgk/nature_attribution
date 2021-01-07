@@ -2,17 +2,6 @@ from ._builtin import Page
 from otree.api import Currency as c
 
 
-class TreatmentSelection(Page):
-    form_model = 'group'
-    form_fields = ['debug_treatment']
-
-    def is_displayed(self):
-        return self.is_debug and self.player.id_in_subsession == 1 and not self.player.participant.vars.get('vars_set', False)
-
-    def before_next_page(self):
-        self.subsession.set_treatment_vars(self.group.debug_treatment)
-
-
 class Survey(Page):
     form_model = 'player'
     form_fields = ['age', 'gender', 'education', 'major', 'risk']
@@ -40,7 +29,6 @@ class LastPage(Page):
 
 
 page_sequence = [
-    TreatmentSelection,
     Survey,
     LastPage
 ]
