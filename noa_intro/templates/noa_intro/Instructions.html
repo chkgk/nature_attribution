@@ -24,49 +24,34 @@
     
     {% if player.nc_treatment %}
         <p>
-            The player and the co-player take one of two actions, either <b>A</b> or <b>B</b>. The urn from which the ball is drawn contains 20 <b>red</b> balls and 80 <b>green</b> balls. Both player and co-player learn their payoff at the end of the round.
+            The player and the co-player take one of two actions, either <b>A</b> or <b>B</b>. The urn from which the ball is drawn contains {{ group.red_balls }} <b>red</b> balls and {{ group.green_balls }} <b>green</b> balls. Both player and co-player learn their payoff at the end of the round.
         </p>
     {% else %}
         <p>
-            The player and the co-player take one of two actions, either <b>A</b> or <b>B</b>. The urn from which the ball is drawn contains 20 <b>red</b> balls and 80 <b>green</b> balls. Both player and co-player learn the color of the draw and the other player’s action at the end of the round.
+            The player and the co-player take one of two actions, either <b>A</b> or <b>B</b>. The urn from which the ball is drawn contains {{ group.red_balls }} <b>red</b> balls and {{ group.green_balls }} <b>green</b> balls. Both player and co-player learn the color of the draw and the other player’s action at the end of the round.
         </p>
     {% endif %}
     
-    {% if player.cc_treatment %}
-        <p>
-            If a <b>red</b> ball is drawn, the actions of the player and the co-player do not matter for the outcome.  The player receives nothing (US$ 0). The computer co-player also "receives" nothing (US$ 0).
-        </p>
-        <p>
-            If a green ball is drawn, then the actions of the player and the co-player matter for the outcome. There are four possibilities:
-            <ul>
-                <li>A <b>green</b> ball is drawn and the player’s <b>action is A</b> and the <b>co-player’s action is A</b>: The player receives US$ 1. The computer co-player also "receives" US$ 1.</li>
-                <li>A <b>green</b> ball is drawn and the player’s <b>action is A</b> and the <b>co-player’s action is B</b>: The player receives US$ 1. The co-player "receives" US$ 3.</li>
-                <li>A <b>green</b> ball is drawn and the player’s <b>action is B</b> and the <b>co-player’s action is A</b>: The player receives US$ 3. The co-player "receives" US$ 1.</li>
-                <li>A <b>green</b> ball is drawn and the player’s <b>action is B</b> and the <b>co-player’s action is B</b>: The player receives nothing (US$ 0). The co-player "receives" nothing (US$ 0).</li>
-            </ul>
-        </p>
     
-        <p>
-            The co-players’ action is programmed to be <b>A</b> in about 60 out of 100 cases and <b>B</b> in about 40 out of 100 cases.
-        </p>
-    {% else %}
-        <p>
-            If a <b>red</b> ball is drawn, the actions of the player and the co-player do not matter for the outcome.  The player receives nothing (US$ 0). So does the co-player (US$ 0).
-        </p>
-        <p>
-            If a green ball is drawn, then the actions of the player and the co-player matter for the outcome. There are four possibilities:
-            <ul>
-                <li>A <b>green</b> ball is drawn and the player’s <b>action is A</b> and the <b>co-player’s action is A</b>: The player receives US$ 1. So does the co-player (US$ 1).</li>
-                <li>A <b>green</b> ball is drawn and the player’s <b>action is A</b> and the <b>co-player’s action is B</b>: The player receives US$ 1. The co-player receives US$ 3.</li>
-                <li>A <b>green</b> ball is drawn and the player’s <b>action is B</b> and the <b>co-player’s action is A</b>: The player receives US$ 3. The co-player receives US$ 1.</li>
-                <li>A <b>green</b> ball is drawn and the player’s <b>action is B</b> and the <b>co-player’s action is B</b>: The player receives nothing (US$ 0). So does the co-player (US$ 0).</li>
-            </ul>
-        </p>
-    
-        <p>
-            In a previous experiment, the co-players’ action was <b>A</b> in about 60 out of 100 cases and <b>B</b> in about 40 out of 100 cases.
-        </p>
+    <p>
+        If a <b>red</b> ball is drawn, the actions of the player and the co-player do not matter for the outcome.  The player receives nothing ({{ 0|c }}). So does the co-player ({{ 0|c }}).
+    </p>
+    <p>
+        If a green ball is drawn, then the actions of the player and the co-player matter for the outcome. There are four possibilities:
+        <ul>
+            <li>A <b>green</b> ball is drawn and the player’s <b>action is A</b> and the <b>co-player’s action is A</b>: The player receives {{ 1|c }}. So does the co-player ({{ 1|c }}).</li>
+            <li>A <b>green</b> ball is drawn and the player’s <b>action is A</b> and the <b>co-player’s action is B</b>: The player receives {{ 1|c }}. The co-player receives {{ group.max_pay }}.</li>
+            <li>A <b>green</b> ball is drawn and the player’s <b>action is B</b> and the <b>co-player’s action is A</b>: The player receives {{ group.max_pay }}. The co-player receives {{ 1|c }}.</li>
+            <li>A <b>green</b> ball is drawn and the player’s <b>action is B</b> and the <b>co-player’s action is B</b>: The player receives nothing ({{ 0|c }}). So does the co-player ({{ 0|c }}).</li>
+        </ul>
+    </p>
+
+    {% if group.announce_q %}
+    <p>
+        In a previous experiment, the co-players’ action was <b>A</b> in about {{ group.green_balls }} out of 100 cases and <b>B</b> in about {{ group.red_balls }} out of 100 cases.
+    </p>
     {% endif %}
+
 
     <p>Please click ‘next’ to continue.</p>
     {% next_button %}

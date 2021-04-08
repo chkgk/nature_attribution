@@ -30,7 +30,7 @@ class Results(Page):
         return not self.player.dropped_out
 
     def get_form_fields(self):
-        return ['wtp_payment'] if self.player.wtp_treatment else []
+        return ['wtp_payment', 'wants_to_know'] if self.player.wtp_treatment and self.player.wtp_round_1 else []
 
     def vars_for_template(self):
         return {
@@ -40,7 +40,7 @@ class Results(Page):
         }
 
     def before_next_page(self):
-        if self.player.wtp_treatment:
+        if self.player.wtp_treatment and self.player.wtp_round_1 and self.player.wants_to_know:
             self.player.bdm_mechanism()
 
         self.player.set_room_payoff()
@@ -48,7 +48,7 @@ class Results(Page):
 
 class WTPResults(Page):
     def is_displayed(self):
-        return self.player.wtp_treatment and not self.player.dropped_out
+        return self.player.wtp_treatment and self.player.wtp_round_1 and self.player.wants_to_know and not self.player.dropped_out
 
     def vars_for_template(self):
         return {

@@ -22,107 +22,99 @@
     </div>
     <p>
         Welcome to the quiz. <br>
-        Here you have the chance to check whether you have properly understood the rules of the game. Please answer the following questions.
+        Please answer the following questions. <b>Make sure to select the correct answers. You will only be able to continue this study if you need less than 3 tries to correctly answer all 7 questions of the quiz!</b>
     </p>
     
-    {% if player.cc_treatment %}
-        1. Which of the following is correct? In the first round and in the second round, my co-players are
-        <ul id="id_c1_coplayer">
-            <li>
-                <label for="id_c1_coplayer_0"><input type="radio" name="c1_coplayer" value="1" required id="id_c1_coplayer_0" class="form-check-input" {% if form.c1_coplayer.value == 1 %}checked="checked"{% endif %}>other human participants.</label>
-            </li>
-            <li>
-                <label for="id_c1_coplayer_1"><input type="radio" name="c1_coplayer" value="2" required id="id_c1_coplayer_1" class="form-check-input" {% if form.c1_coplayer.value == 2 %}checked="checked"{% endif %}>computers.</label>
-            </li>
-        </ul>
-        
-    {% else %}
-        1. Which of the following is correct? In the first round and in the second round, my co-player is
-        <ul id="id_c1_coplayer">
-            <li>
-                <label for="id_c1_coplayer_0"><input type="radio" name="c1_coplayer" value="1" required id="id_c1_coplayer_0" class="form-check-input" {% if form.c1_coplayer.value == 1 %}checked="checked"{% endif %}>the same participant in both rounds.</label>
-            </li>
-            <li>
-                <label for="id_c1_coplayer_1"><input type="radio" name="c1_coplayer" value="2" required id="id_c1_coplayer_1" class="form-check-input" {% if form.c1_coplayer.value == 2 %}checked="checked"{% endif %}>a different participant in each round.</label>
-            </li>
-        </ul>
-    {% endif %}
-    <div class="form-control-errors">
-        {{ form.c1_coplayer.errors }}
-    </div>
-    {% if page == 2 %}
-        {% if c1_ok %}
-            <p class="correct">Correct!</p>
-        {% else %}
-            <p>
-                <span class="incorrect">Wrong! Please read this part of the instructions again and correct your answer:</span><br/>
-                <em>
-                    {% if player.cc_treatment %}
-                        First, you take a small quiz about the game.<br>
-                        Then you are matched with a co-player, which is a computer, and the first round of the game is played. <br>
-                        Thereafter, you are matched anew with a computer co-player and the second round of the game is played.<br>
-                        Finally, you are asked to fill out a short survey.
-                    {% else %}
-                        First, you take a small quiz about the game.<br>
-                        Then you are matched with another participant and the first round of the game is played.<br>
-                        Thereafter, you are matched with a different participant and the second round of the game is played.<br>
-                        Finally, you are asked to fill out a short survey.
-                    {% endif %}
-                </em>
-            </p>
-        {% endif %}
-    {% endif %}
+    {% formfield 'c1_coplayer' %}
+    <p class="correct" id="c1_correct">Correct!</p>
+    <p class="incorrect" id="c1_error">
+        First, you take a small quiz about the game.<br>
+        Then you are matched with another participant and the first round of the game is played.<br>
+        Thereafter, you are matched with a different participant and the second round of the game is played.<br>
+        Finally, you are asked to fill out a short survey.
+    </p>
+    
     <hr/>
-
-    {{ form.c2_probabilities.label }}
-    {{ form.c2_probabilities }}
-    <div class="form-control-errors">
-        {{ form.c2_probabilities.errors }}
-    </div>
-    {% if page == 2 %}
-        {% if c2_ok %}
-            <p class="correct">Correct!</p>
-        {% else %}
-            <p>
-                <span class="incorrect">Wrong! Please read this part of the instructions again and correct your answer:</span><br/>
-                <em>
-                    In a previous experiment, the co-players’ action was A in about 60 out of 100 cases and B in about 40 out of 100 cases.
-                </em>
-            </p>
-        {% endif %}
-    {% endif %}
+    {% formfield 'c2_probabilities' %}
+    <p class="correct" id="c2_correct">Correct!</p>
+    <p class="incorrect" id="c2_error">
+        <span class="incorrect">Wrong! Please read this part of the instructions again and correct your answer:</span><br/>
+        <em>
+            In a previous experiment, the co-players’ action was A in about 60 out of 100 cases and B in about 40 out of 100 cases.
+        </em>
+    </p>
     <hr/>
-
-    {{ form.c3_decision_importance.label }}
-    {{ form.c3_decision_importance }}
-    <div class="form-control-errors">
-        {{ form.c3_decision_importance.errors }}
-    </div>
-    {% if page == 2 %}
-        {% if c3_ok %}
-            <p class="correct">Correct!</p>
-        {% else %}
-            <p><span class="incorrect">Wrong! Please read this part of the instructions again and correct your answer:</span><br/>
+    
+    {% formfield 'c3_decision_importance' %}
+    
+    <p class="correct" id="c3_correct">Correct!</p>
+    <p class="incorrect" id="c3_error">
+        <span class="incorrect">Wrong! Please read this part of the instructions again and correct your answer:</span><br/>
             <em>
                 Note that only one of the two rounds will be selected for payment at random. As it is unknown which of the two rounds counts, it is important to pay equally close attention to both.
-            </em></p>
-        {% endif %}
-    {% endif %}
-
+            </em>
+    </p>
+    <input type="hidden" id="c_attempts1" name="c_attempts1">
+    <p>
+        <button type="button" class="btn btn-primary" id="check_answers_button">Check answers</button>
+    </p>
     {% next_button %}
 
 {% endblock %}
 
 {% block scripts %}
     <script type="text/javascript">
-        var page = {{ page|json }};
-        var c1_ok = {{ c1_ok|json }};
-        var c2_ok = {{ c2_ok|json }};
-        var c3_ok = {{ c3_ok|json }};
 
-        // if not all ok, relabel next button
-        if (!(c1_ok && c2_ok && c3_ok)) {
-            $(".otree-btn-next").html('check answers');
-        }
+        $(".otree-btn-next").hide();
+        
+        let c1_solution = {{ c1_solution|json }};
+        let c2_solution = {{ c2_solution|json }};
+        let c3_solution = {{ c3_solution|json }};
+        
+        let attempts = {{ player.c_attempts1|json }};
+        $('#c_attempts1').val(attempts);
+        
+        $('#c1_error').hide();
+        $('#c1_correct').hide();
+        $('#c2_error').hide();
+        $('#c2_correct').hide();
+        $('#c3_error').hide();
+        $('#c3_correct').hide();
+
+
+        $("#check_answers_button").click(function(e) {
+            let c1 = $("input:radio[name='c1_coplayer']:checked").val();
+            let c2 = $("input:radio[name='c2_probabilities']:checked").val();
+            let c3 = $("input:radio[name='c3_decision_importance']:checked").val();
+            if (c1 != c1_solution) {
+                $('#c1_error').show();
+                $('#c1_correct').hide();
+            } else {
+                $('#c1_error').hide();
+                $('#c1_correct').show();
+            }
+            if (c2 != c2_solution) {
+                $('#c2_error').show();
+                $('#c2_correct').hide();
+            } else {
+                $('#c2_error').hide();
+                $('#c2_correct').show();
+            }
+            if (c3 != c3_solution) {
+                $('#c3_error').show();
+                $('#c3_correct').hide();
+            } else {
+                $('#c3_error').hide();
+                $('#c3_correct').show();
+            }
+            
+            if (c1 == c1_solution & c2 == c2_solution & c3 == c3_solution) {
+                $('#check_answers_button').hide();
+                $('.otree-btn-next').show();
+            }
+            attempts += 1;
+            $('#c_attempts1').val(attempts);
+        });
+        
     </script>
 {% endblock %}

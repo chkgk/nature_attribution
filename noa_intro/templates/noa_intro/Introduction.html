@@ -13,13 +13,23 @@
     </style>
 {% endblock %}
 
+{% block scripts %}
+     <script src="https://www.google.com/recaptcha/api.js"></script>
+     <script>
+        $('.otree-btn-next').hide();
+         function onCaptchaSolve(token) {
+             $('.otree-btn-next').show();
+         }
+     </script>
+{% endblock %}
+
 {% block content %}
     <p>
         Thank you for participating.<br>
         {% if player.wtp_treatment %}
-            If you read these rules carefully and choose wisely, you start with a bonus of US$0.50 and can earn an additional bonus of up to US$ 3.00 by participating in a game that involves other participants.
+            If you read these rules carefully and choose wisely, you start with a bonus of US$0.50 and can earn an additional bonus of up to {{ group.max_pay }} by participating in a game that involves other participants.
         {% else %}
-            If you read these rules carefully and choose wisely, you can earn a bonus of up to US$ 3.00 by participating in a game that involves other participants.
+            If you read these rules carefully and choose wisely, you can earn a bonus of up to {{ group.max_pay }} by participating in a game that involves other participants.
         {% endif %}
     </p>
     <p>
@@ -34,34 +44,23 @@
     <p>
         <b>First</b>, you take a small <b>quiz</b> about the game. 
     </p>
-    {% if player.cc_treatment %}
-        <p>
-            <b>Then</b> you are matched with a co-player, which is a computer, and the <b>first round</b> of the game is played. 
-        </p>
-        <p>
-            <b>Thereafter</b>, you are matched anew with a computer co-player and the <b>second round</b> of the game is played.
-        </p>
-    {% else %}
-        <p>
-            <b>Then</b> you are matched with another participant and the <b>first round</b> of the game is played. 
-        </p>
-        <p>
-            <b>Thereafter</b>, you are matched with a different participant and the <b>second round</b> of the game is played.
-        </p>
-    {% endif %}
+    
+    <p>
+        <b>Then</b> you are matched with another participant and the <b>first round</b> of the game is played. 
+    </p>
+    <p>
+        <b>Thereafter</b>, you are matched with a different participant and the <b>second round</b> of the game is played.
+    </p>
     <p>
         <b>Finally</b>, you are asked to fill out a short <b>survey</b>.
     </p>
     <p>
         Note that only one of the two rounds will be selected for payment at random. As it is unknown which of the two rounds counts, it is important to pay equally close attention to both.
     </p>
-    {% if player.cc_treatment %}
-        <p>
-            The computer co-players do not "receive" any payment - they are computer programs.
-        </p>
-    {% endif %}
-
-    <p>Please click ‘next’ to continue.</p>
+    
+    <p>Please solve the captcha below to continue with the study.</p>
+    <div class="g-recaptcha" data-sitekey="6Lfy68UUAAAAAIWXmj49LvzA0vv3iZ_QgTIcEpuB" data-callback="onCaptchaSolve"></div>
+    
     {% next_button %}
 {% endblock %}
 

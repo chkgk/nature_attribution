@@ -24,51 +24,36 @@ class Constants(BaseConstants):
     players_per_group = None
     num_rounds = 1
 
-    max_group_match_waiting = 15  # seconds
-
-    ball_green_probability = 0.8
-    action_b_probability = 0.4
+    max_group_match_waiting = 180  # seconds
 
     max_price = 0.5
     min_price = 0.0
 
-    # note: False = red, True = green
-    payoff_matrix = {
-        False:
-            {
-                False: 1,
-                True: 1
-            },
-        True:
-            {
-                False: 3,
-                True: 0
-            }
-    }
-
 
 class Subsession(BaseSubsession):
+    max_pay = models.CurrencyField()
+    ball_green_probability = models.FloatField()
+
     def creating_session(self):
+        self.max_pay = self.session.config.get('max_pay', False)
+        red_balls = self.session.config.get('red_balls', False)
+        green_balls = self.session.config.get('green_balls', False)
+
+        if not all([self.max_pay, red_balls, green_balls]):
+            raise Exception('Session not configured properly')
+        self.ball_green_probability = green_balls / (green_balls + red_balls)
+
         for player in self.get_players():
             # set all variables on the player so that they are included in exports
-            player.aa_treatment = self.session.vars['aa_treatment']
-            player.ra_treatment = self.session.vars['ra_treatment']
-            player.cc_treatment = self.session.vars['cc_treatment']
             player.nc_treatment = self.session.vars['nc_treatment']
             player.wtp_treatment = self.session.vars['wtp_treatment']
+            if self.session.vars['wtp_treatment']:
+                player.wtp_round_1 = self.session.vars['wtp_round_1']
             player.payment_room_1 = self.session.vars['payment_room_1']
 
     def group_by_arrival_time_method(self, waiting_players):
-        # immediately advance players in the CC treatment
-        if waiting_players:
-            if waiting_players[0].cc_treatment:
-                return [waiting_players[0]]
-
         if len(waiting_players) >= 2:
             group = waiting_players[:2]
-
-            for p in group:
-                p.set_treatment_vars()
 
             return group
 
@@ -85,16 +70,16 @@ class Group(BaseGroup):
     ball_green = models.BooleanField(doc="True (1) if color of ball drawn is green in round 1, else False (0).")
 
     def draw_ball(self):
-        self.ball_green = random.random() < Constants.ball_green_probability
+        self.ball_green = random.random() < self.subsession.ball_green_probability
 
 
 class Player(BasePlayer):
     # treatment indicators
-    aa_treatment = models.BooleanField(initial=False)
-    ra_treatment = models.BooleanField(initial=False)
-    cc_treatment = models.BooleanField(initial=False)
     nc_treatment = models.BooleanField(initial=False)
     wtp_treatment = models.BooleanField(initial=False)
+    wtp_round_1 = models.BooleanField()
+
+    wants_to_know = models.BooleanField()
 
     # round payment indicator
     payment_room_1 = models.BooleanField()
@@ -114,21 +99,25 @@ class Player(BasePlayer):
         return now - self.participant.vars.get('r1_start_wait', now) > Constants.max_group_match_waiting
 
     def set_partner_action(self):
+        if self.dropped_out:
+            return
         self.action = self.participant.vars.get('action1_b')
-        if self.cc_treatment:
-            self.partner_id_in_subsession = None
-            self.participant.vars['partner_1'] = None
-            self.other_b_r1 = random.random() < Constants.action_b_probability
-        else:
-            partner = self.get_others_in_group()[0]
-            self.partner_id_in_subsession = partner.id_in_subsession
-            self.participant.vars["partner_1"] = self.partner_id_in_subsession
-            self.other_b_r1 = partner.participant.vars.get('action1_b')
+        partner = self.get_others_in_group()[0]
+        self.partner_id_in_subsession = partner.id_in_subsession
+        self.participant.vars["partner_1"] = self.partner_id_in_subsession
+        self.other_b_r1 = partner.participant.vars.get('action1_b')
 
     def calculate_game_round_payoff(self):
-        if self.other_b_r1 is not None:
+        if not self.dropped_out:
             if self.group.ball_green:
-                self.game_payoff = c(Constants.payoff_matrix[self.action][self.other_b_r1])
+                if self.action and self.other_b_r1:
+                    self.game_payoff = c(0)
+                elif self.action and not self.other_b_r1:
+                    self.game_payoff = self.subsession.max_pay
+                elif not self.action and self.other_b_r1:
+                    self.game_payoff = c(1)
+                else:
+                    self.game_payoff = c(1)
             else:
                 self.game_payoff = c(0)
         else:
@@ -147,7 +136,7 @@ class Player(BasePlayer):
             self.wtp_result = Constants.max_price
 
     def set_room_payoff(self):
-        if self.wtp_treatment:
+        if self.wtp_treatment and self.wtp_round_1 and self.wants_to_know:
             self.participant.vars['room_payoff_1'] = self.game_payoff + self.wtp_result
         else:
             self.participant.vars['room_payoff_1'] = self.game_payoff

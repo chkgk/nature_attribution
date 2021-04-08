@@ -5,23 +5,124 @@
     Second round: Results
 {% endblock %}
 
+{% block styles %}
+    {% if player.wtp_treatment %}
+        <link rel="stylesheet" href="{% static "noa_shared/bootstrap-slider.min.css" %}"/>
+        <link rel="stylesheet" href="{% static "noa_shared/agent.css" %}">
+    {% endif %}
+{% endblock %}
 
 {% block content %}
     <div align="center">
         <img src="{% static 'noa_shared/room_diagram_second_round.png' %}" height="150">
     </div>
     <p>
-        Your action was <b>{{ own_action }}</b>.<br>
-        Your co-player's action was <b>{{ others_action }}</b>.<br>
-        The ball drawn from the urn was <b>{{ ball_color }}</b>.
+        Your action was <b>{{ own_action }}</b>.
     </p>
-    <p>
-        As a result you earned <b>{{ player.game_payoff }}</b> if this room is selected for payment.
-    </p>
+    {% if player.nc_treatment %}
+        <p>
+            Based on
+            <ul>
+                <li>the urn draw,</li>
+                <li>your own action, and</li>
+                <li>your co-player's action,</li>
+            </ul>
+            you earned <b>{{ player.game_payoff }}</b> if this room is selected for payment.
+        </p>
+    {% else %}
+        <p>
+            Your co-player's action was <b>{{ others_action }}</b>.<br>
+            The ball drawn from the urn was <b>{{ ball_color }}</b>.
+        </p>
+        <p>
+            As a result you earned <b>{{ player.game_payoff }}</b> if this room is selected for payment.
+        </p>
+    {% endif %}
+
+    {% if player.wtp_treatment and not player.wtp_round_1 %}
+        <p>
+            Before you proceed to the second round, you can find out which action your co-player took and the color of the ball that was drawn. 
+        </p>
+        <p>
+            Would you like to know the color of the ball drawn and the action your co-player took?
+        </p>
+        <div id="wtp_button_box" style="text-align: center; margin-bottom: 1em;">
+            <button type="button" class="btn btn-primary" id="wtp_yes">Yes</button>
+            <button type="button" class="btn btn-primary" id="wtp_no" style="margin-left: 50px">No</button>
+        </div>
+        
+        <div id="wtp_box">
+            <p>
+                Please set the slider below between $0.00 and $0.50 to state how much you are willing to pay at most for finding out. The computer will randomly determine the price of the information. If your willingness to pay is lower than the price, you will not buy the information. If it is higher, you buy the information. In this case its price will be deducted from your bonus. 
+            </p>
+            <p>
+                Your interests are best served by setting the slider to your true valuation of the information.
+            </p>
+            <p>
+                How many cents at most are you willing to pay to find out which action your co-player took and the color of the ball that was drawn?  
+            </p>
+            
+            <table cellspacing="0" class="slider-layout" width="%">
+                <tr>
+                    <td align="right" width="250">
+                        $0.00
+                    </td>
+                    <td align="center" width="410">
+                        <input id="id_wtp_payment" name="wtp_payment" type="text" data-slider-min="0.00" data-slider-max="0.50" data-slider-step="0.01" data-slider-value="0.25"/>
+                    </td>
+                    <td align="left" width="250">
+                       $0.50
+                    </td>
+                </tr>
+            </table>
+            <p style="text-align: center;">$<span id="wtp"></span></p>
+        </div>
+    {% endif %}
     
-    <p>Please click ‘next’ to continue.</p>
+    <input type="hidden" id="wants_to_know" name="wants_to_know">
+    
     {% next_button %}
 {% endblock %}
 
-
+{% block scripts %}
+    {% if player.wtp_treatment and not player.wtp_round_1 %}
+        <script src="{% static "noa_shared/bootstrap-slider.min.js" %}"></script>
+        
+        {% if player.wtp_treatment and not player.wtp_round_1 %}
+        <script type="text/javascript">
+            $('#wtp_box').hide();
+            
+            $('#wtp_no').on('click', function(event) {
+                $('#wants_to_know').val(0);
+                $('#form').submit();
+            });
+            
+            $('#wtp_yes').on('click', function(event) {
+                $('#wtp_yes').removeClass('btn-primary');
+                $('#wtp_yes').addClass('btn-success');
+                $('#wtp_no').removeClass('btn-primary');
+                $('#wtp_no').addClass('btn-secondary');
+                $('#wtp_yes').attr('disabled', true);
+                $('#wtp_no').attr('disabled', true);
+                $('#wants_to_know').val(1);
+                $('#wtp_box').show();
+            });
+        </script>
+        {% endif %}
+        
+        <script type="text/javascript">
+            $("#id_wtp_payment").slider();
+            $('.otree-btn-next').hide();
+            $('.slider-handle').hide();
+            $('.slider').on('mousedown', function (event) {
+                $(this).find('.slider-handle:not(.hide)').show();
+                $('.otree-btn-next').show();
+            });
+            $('.slider').on('change', function(event) {
+                let v = parseFloat($('#id_wtp_payment').val());
+                $('#wtp').text(v.toFixed(2)); 
+            });
+        </script>
+    {% endif %}
+{% endblock %}
 

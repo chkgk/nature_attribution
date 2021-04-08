@@ -27,16 +27,10 @@
         <p>
             Round {{ payment_room }} was randomly selected for payout, where you earned {{ payment }}. 
         </p>
-        {% if player.wtp_treatment %}
-            {% if info_bought %}
-                <p>
-                    You started out with a bonus of $0.50. You paid {{ info_price }} for finding out the action of your co-player and the urn draw in round 1, leaving you with {{ wtp_bonus }}.
-                </p>
-            {% else %}
-                <p>
-                    You kept your starting bonus of {{ wtp_bonus }}.
-                </p>
-            {% endif %}
+        {% if player.wtp_treatment and info_bought %}
+            <p>
+                You paid {{ info_price }} for finding out the action of your co-player and the urn draw.
+            </p>
         {% endif %}
     {% endif %}
     <p>

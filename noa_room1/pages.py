@@ -3,29 +3,12 @@ from ._builtin import Page, WaitPage
 from .models import Constants
 
 
-class ActionPreference(Page):
-    form_model = 'player'
-    form_fields = ["prefers_b"]
-
-    def is_displayed(self):
-        return self.player.aa_treatment
-
-
 class Decision(Page):
     form_model = 'player'
-
-    def get_form_fields(self):
-        return ['action1_b'] if self.player.ra_treatment else []
+    form_fields = ['action1_b']
 
     def before_next_page(self):
-        if self.player.aa_treatment:
-            self.player.action1_b = True
         self.player.participant.vars["action1_b"] = self.player.action1_b
-
-
-class DecisionAssignment(Page):
-    def is_displayed(self):
-        return self.player.aa_treatment
 
 
 class BeliefColor(Page):
@@ -39,9 +22,7 @@ class BeliefOther(Page):
 
 
 page_sequence = [
-    ActionPreference,
     Decision,
-    DecisionAssignment,
-    BeliefColor,
-    BeliefOther
+    #BeliefColor,
+    #BeliefOther
 ]

@@ -23,6 +23,6 @@ class BeliefOther(Page):
 
 page_sequence = [
     Decision,
-    BeliefColor,
-    BeliefOther
+   # BeliefColor,
+   # BeliefOther
 ]

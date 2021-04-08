@@ -24,8 +24,13 @@ class GroupMatching(WaitPage):
 
 
 class Results(Page):
+    form_model = 'player'
+    
     def is_displayed(self):
         return not self.player.dropped_out
+
+    def get_form_fields(self):
+        return ['wtp_payment', 'wants_to_know'] if self.player.wtp_treatment and not self.player.wtp_round_1 else []
 
     def vars_for_template(self):
         return {
@@ -35,10 +40,27 @@ class Results(Page):
         }
 
     def before_next_page(self):
+        if self.player.wtp_treatment and not self.player.wtp_round_1 and self.player.wants_to_know:
+            self.player.bdm_mechanism()
+
         self.player.set_room_payoff()
+
+
+class WTPResults(Page):
+    def is_displayed(self):
+        return self.player.wtp_treatment and not self.player.wtp_round_1 and self.player.wants_to_know and not self.player.dropped_out
+
+    def vars_for_template(self):
+        return {
+            'own_action': 'B' if self.player.action else 'A',
+            'others_action': 'B' if self.player.other_b_r2 else 'A',
+            'ball_color': 'green' if self.group.ball_green else 'red',
+            'room_payoff': self.player.participant.vars['room_payoff_2']
+        }
 
 
 page_sequence = [
     GroupMatching,
     Results,
+    WTPResults
 ]

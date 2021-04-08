@@ -17,18 +17,10 @@
         You are now a player in this game, where you can earn money if this round is selected for payout.
     </p>
     <p>
-        {% if player.cc_treatment %}
-            You are matched with a computer, your co-player for this round. Your co-player will choose an action, A or B, and a ball, red or green, will be drawn.
-        {% else %}
-            You are matched with another participant, your co-player for this round. Your co-player will choose an action, A or B, and a ball, red or green, will be drawn.
-        {% endif %}
+        You are matched with another participant, your co-player for this round. Your co-player will choose an action, A or B, and a ball, red or green, will be drawn.
     </p>
 
-    {% if player.ra_treatment %}
-        {% formfield player.action1_b %}
-    {% else %}
-        In this round, your action, A or B, is <b>assigned</b> to you.
-    {% endif %}
+    {% formfield player.action1_b %}
 
     <p>Please click ‘next’ to continue.</p>
     {% next_button %}

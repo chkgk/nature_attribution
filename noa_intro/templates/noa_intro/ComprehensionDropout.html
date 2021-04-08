@@ -1,0 +1,32 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+    Feedback
+{% endblock %}
+
+{% block styles %}
+    <style type="text/css">
+        .center {
+            text-align: center;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+    <p>
+        Unfortunately, you did not pass the quiz. You needed {{ attempts }} tries to answer all 7 questions correctly. Passing the quiz with less than 3 tries is a requirement for this study as explained in the HIT description.
+    </p>
+    <p>
+        To avoid the HIT being rejected, we suggest to return the HIT on Mechanical Turk.
+    </p>
+    <p>
+        Thank you for your participation.
+    </p>
+    <p>
+        If you have any questions regarding this study, please write an email to {{ experimenter_name }}:
+        <a href="mailto:{{ experimenter_email }}">{{ experimenter_email }}</a>.
+    </p>
+{% endblock %}
+
+

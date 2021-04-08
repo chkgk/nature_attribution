@@ -1,61 +1,31 @@
 {% load otree static %}
+<div class="card bg-light" id="payoff_reminder">
+    <div class="card-body">
+        <p>
+            Remember: Your payoff is jointly determined by:
+        </p>
+        <ul>
+            <li>whether a red or a green ball is drawn from an urn containing {{ group.red_balls }} red and {{ group.green_balls }} green balls,</li>
+            <li>whether your action is A or B, and</li>
+            <li>whether your co-player's action is A or B.</li>
+        </ul>
 
-{% if player.cc_treatment %}
-    <div class="card bg-light" id="payoff_reminder">
-        <div class="card-body">
+        {% if group.announce_q %}
             <p>
-                Remember: Your payoff is jointly determined by:
+                In a previous experiment, the co-player's action was A in about {{ group.green_balls }} out of 100 cases and B in about {{ group.red_balls }} out of 100 cases.
             </p>
-            <ul>
-                <li>whether a red or a green ball is drawn from an urn containing 20 red and 80 green balls,</li>
-                <li>whether your action is A or B, and</li>
-                <li>whether your co-player's action is A or B.</li>
-            </ul>
-    
-            <p>
-                The co-players’ action is programmed to be <b>A</b> in about 60 out of 100 cases and <b>B</b> in about 40 out of 100 cases.
-            </p>
-            <p>
-                If a green ball is drawn, and:
-            </p>
-            <ul>
-                <li>your action is A, and your co-player chooses A: You receive US$ 1. Your co-player "receives" US$ 1.</li>
-                <li>your action is A, and your co-player chooses B: You receive US$ 1. Your co-player "receives" US$ 3.</li>
-                <li>your action is B, and your co-player chooses A: You receive US$ 3. Your co-player "receives" US$ 1.</li>
-                <li>your action is B, and your co-player chooses B: You receive nothing (US$ 0). Your co-player "receives" nothing (US$ 0).</li>
-            </ul>
-            <p>
-                If a red ball is drawn, you and your co-player both receive nothing (US$ 0).
-            </p>
-        </div>
+        {% endif %}
+        <p>
+            If a green ball is drawn, and:
+        </p>
+        <ul>
+            <li>your action is A, and your co-player chooses A: You receive {{ 1|c }}. Your co-player receives {{ 1|c }}.</li>
+            <li>your action is A, and your co-player chooses B: You receive {{ 1|c }}. Your co-player receives {{ group.max_pay }}.</li>
+            <li>your action is B, and your co-player chooses A: You receive {{ group.max_pay }}. Your co-player receives {{ 1|c }}.</li>
+            <li>your action is B, and your co-player chooses B: You receive nothing ({{ 0|c }}). Your co-player receives nothing ({{ 0|c }}).</li>
+        </ul>
+        <p>
+            If a red ball is drawn, you and your co-player both receive nothing ({{ 0|c }}).
+        </p>
     </div>
-{% else %}
-    <div class="card bg-light" id="payoff_reminder">
-        <div class="card-body">
-            <p>
-                Remember: Your payoff is jointly determined by:
-            </p>
-            <ul>
-                <li>whether a red or a green ball is drawn from an urn containing 20 red and 80 green balls,</li>
-                <li>whether your action is A or B, and</li>
-                <li>whether your co-player's action is A or B.</li>
-            </ul>
-    
-            <p>
-                In a previous experiment, the co-player's action was A in about 60 out of 100 cases and B in about 40 out of 100 cases.
-            </p>
-            <p>
-                If a green ball is drawn, and:
-            </p>
-            <ul>
-                <li>your action is A, and your co-player chooses A: You receive US$ 1. Your co-player receives US$ 1.</li>
-                <li>your action is A, and your co-player chooses B: You receive US$ 1. Your co-player receives US$ 3.</li>
-                <li>your action is B, and your co-player chooses A: You receive US$ 3. Your co-player receives US$ 1.</li>
-                <li>your action is B, and your co-player chooses B: You receive nothing (US$ 0). Your co-player receives nothing (US$ 0).</li>
-            </ul>
-            <p>
-                If a red ball is drawn, you and your co-player both receive nothing (US$ 0).
-            </p>
-        </div>
-    </div>
-{% endif %}
+</div>

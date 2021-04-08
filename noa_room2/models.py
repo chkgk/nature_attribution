@@ -24,27 +24,42 @@ class Constants(BaseConstants):
 
 class Subsession(BaseSubsession):
     def creating_session(self):
+        max_pay = self.session.config.get('max_pay', False)
+        red_balls = self.session.config.get('red_balls', False)
+        green_balls = self.session.config.get('green_balls', False)
+        announce_q = self.session.config.get('announce_q', False)
+
+        if not all([max_pay, red_balls, green_balls]):
+            raise Exception('Session not configured properly')
+
+        for g in self.get_groups():
+            g.max_pay = c(max_pay)
+            g.red_balls = red_balls
+            g.green_balls = green_balls
+            g.announce_q = announce_q
+
         for player in self.get_players():
             # set all variables on the player so that they are included in exports
-            player.aa_treatment = self.session.vars['aa_treatment']
-            player.ra_treatment = self.session.vars['ra_treatment']
-            player.cc_treatment = self.session.vars['cc_treatment']
             player.nc_treatment = self.session.vars['nc_treatment']
             player.wtp_treatment = self.session.vars['wtp_treatment']
+            if self.session.vars['wtp_treatment']:
+                player.wtp_round_1 = self.session.vars['wtp_round_1']
             player.payment_room_1 = self.session.vars['payment_room_1']
 
 
 class Group(BaseGroup):
-    pass
+    max_pay = models.CurrencyField()
+    red_balls = models.IntegerField()
+    green_balls = models.IntegerField()
+    announce_q = models.BooleanField()
 
 
 class Player(BasePlayer):
     # treatment indicators
-    aa_treatment = models.BooleanField(initial=False)
-    ra_treatment = models.BooleanField(initial=False)
-    cc_treatment = models.BooleanField(initial=False)
     nc_treatment = models.BooleanField(initial=False)
     wtp_treatment = models.BooleanField(initial=False)
+    wtp_round_1 = models.BooleanField()
+
 
     # round payment indicator
     payment_room_1 = models.BooleanField()
