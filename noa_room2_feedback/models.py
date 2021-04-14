@@ -24,7 +24,7 @@ class Constants(BaseConstants):
     players_per_group = None
     num_rounds = 1
 
-    max_group_match_waiting = 20  # seconds
+    max_group_match_waiting = 180  # seconds
 
     max_price = 0.5
     min_price = 0.0
