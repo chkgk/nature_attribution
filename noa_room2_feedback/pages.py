@@ -25,7 +25,7 @@ class GroupMatching(WaitPage):
 
 class Results(Page):
     form_model = 'player'
-    
+
     def is_displayed(self):
         return not self.player.dropped_out
 

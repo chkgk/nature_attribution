@@ -24,9 +24,7 @@ class Constants(BaseConstants):
     players_per_group = None
     num_rounds = 1
 
-    max_group_match_waiting = 180  # seconds
-
-    action_b_probability = 0.4
+    max_group_match_waiting = 20  # seconds
 
     max_price = 0.5
     min_price = 0.0
@@ -51,12 +49,13 @@ class Subsession(BaseSubsession):
             player.wtp_treatment = self.session.vars['wtp_treatment']
             if self.session.vars['wtp_treatment']:
                 player.wtp_round_1 = self.session.vars['wtp_round_1']
-            player.payment_room_1 = self.session.vars['payment_room_1']
+            player.payment_room_1 = player.participant.vars['payment_room_1']
 
     def group_by_arrival_time_method(self, waiting_players):
         # make sure to advance dropped out players immediately
         for wp in waiting_players:
             if wp.participant.vars.get('dropout', False):
+                wp.dropped_out = True
                 return [wp]
 
         # now we match players, making sure that they continue with a stranger

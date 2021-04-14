@@ -51,8 +51,8 @@ class ComprehensionDropout(Page):
 
 page_sequence = [
     Introduction,
-    #Instructions,
-    #Comprehension1,
-    #Comprehension2,
-    #ComprehensionDropout
+    Instructions,
+    Comprehension1,
+    Comprehension2,
+    ComprehensionDropout
 ]

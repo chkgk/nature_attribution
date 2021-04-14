@@ -54,11 +54,11 @@ SESSION_CONFIG_DEFAULTS = {
     'doc': "",
     'mturk_hit_settings': dict(
         keywords='bonus, study, research, decision making',
-        title='Short Research Study (ca 5min)',
-        description='Participate in a game. Please note that the task is to be completed within 10 minutes.',
+        title='Short Research Study (ca. 10min)',
+        description='Participate in a game and a short survey. Please note that the task is to be completed within 10-15 minutes as you are matched with a co-player.',
         frame_height=700,
-        template='noa_pilot_main/mturk_template.html',
-        minutes_allotted_per_assignment=15,
+        template='noa_intro/mturk_template.html',
+        minutes_allotted_per_assignment=20,
         expiration_hours=3,
         qualification_requirements=[
             {

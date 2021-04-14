@@ -25,7 +25,7 @@ class Constants(BaseConstants):
 
     comprehension_solutions = {
         'c1_coplayer': 2,
-        'c2_probabilities': 1,
+        'c2_probabilities': 2,
         'c3_decision_importance': 2,
         'c4_payoff_ab_red': 1,
         'c5_payoff_ab_green': 2,
@@ -61,15 +61,15 @@ class Subsession(BaseSubsession):
         else:
             self.session.vars['wtp_treatment'] = False
 
-        self.session.vars['payment_room_1'] = random.randint(1, 2) == 1
-
         for player in self.get_players():
+            player.participant.vars['payment_room_1'] = random.randint(1, 2) == 1
+
             # set all variables on the player so that they are included in exports
             player.nc_treatment = self.session.vars['nc_treatment']
             player.wtp_treatment = self.session.vars['wtp_treatment']
             if self.session.vars['wtp_treatment']:
                 player.wtp_round_1 = self.session.vars['wtp_round_1']
-            player.payment_room_1 = self.session.vars['payment_room_1']
+            player.payment_room_1 = player.participant.vars['payment_room_1']
 
 
 class Group(BaseGroup):

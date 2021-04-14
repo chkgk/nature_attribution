@@ -30,7 +30,7 @@ class Subsession(BaseSubsession):
             player.wtp_treatment = self.session.vars['wtp_treatment']
             if self.session.vars['wtp_treatment']:
                 player.wtp_round_1 = self.session.vars['wtp_round_1']
-            player.payment_room_1 = self.session.vars['payment_room_1']
+            player.payment_room_1 = player.participant.vars['payment_room_1']
 
 
 class Group(BaseGroup):
@@ -38,7 +38,6 @@ class Group(BaseGroup):
 
 
 class Player(BasePlayer):
-    # treatment indicators
     # treatment indicators
     nc_treatment = models.BooleanField(initial=False)
     wtp_treatment = models.BooleanField(initial=False)

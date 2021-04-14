@@ -10,7 +10,6 @@ class Survey(Page):
         return not self.participant.vars.get('dropout', False)
 
     def error_message(self, values):
-        print(values)
         if values['education'] >= 2 and not values['major'].strip():
             return 'Please indicate your major.'
 
