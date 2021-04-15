@@ -48,12 +48,10 @@
 
     {% if group.announce_q %}
     <p>
-        In a previous experiment, the co-players’ action was <b>A</b> in about {{ group.green_balls }} out of 100 cases and <b>B</b> in about {{ group.red_balls }} out of 100 cases.
+        Typically, co-players choose action <b>A</b> in about {{ group.green_balls }} out of 100 cases and action <b>B</b> in about {{ group.red_balls }} out of 100 cases.
     </p>
     {% endif %}
-
-
-    <p>Please click ‘next’ to continue.</p>
+    
     {% next_button %}
 
 {% endblock %}

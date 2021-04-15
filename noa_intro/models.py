@@ -23,9 +23,11 @@ class Constants(BaseConstants):
     players_per_group = None
     num_rounds = 1
 
+    max_quiz_attempts = 3
+
     comprehension_solutions = {
         'c1_coplayer': 2,
-        'c2_probabilities': 2,
+        'c2_probabilities': 1,
         'c3_decision_importance': 2,
         'c4_payoff_ab_red': 1,
         'c5_payoff_ab_green': 2,

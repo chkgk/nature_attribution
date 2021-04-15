@@ -5,6 +5,15 @@
     Survey
 {% endblock %}
 
+{% block styles %}
+    <style type="text/css">
+        #comments {
+            height: 5em;
+            max-width: 100%;
+        }
+    </style>
+{% endblock %}
+
 {% block content %}
     <div align="center">
         <img height="150" src="{% static 'noa_shared/room_diagram_survey.png' %}">
@@ -16,7 +25,6 @@
         {% formfield field %}
     {% endfor %}
 
-    <p>Please click ‘next’ to continue.</p>
     {% next_button %}
 
 {% endblock %}

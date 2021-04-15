@@ -22,7 +22,7 @@
     </div>
     <p>
         Welcome to the quiz. <br>
-        Please answer the following questions. <b>Make sure to select the correct answers. You will only be able to continue this study if you need less than 3 tries to correctly answer all 7 questions of the quiz!</b>
+        Please answer the following questions. <b>Make sure to select the correct answers. You will only be able to continue this study if you need at most three tries to correctly answer all seven questions of the quiz!</b>
     </p>
     
     {% formfield 'c1_coplayer' %}
@@ -40,7 +40,7 @@
     <p class="incorrect" id="c2_error">
         <span class="incorrect">Wrong! Please read this part of the instructions again and correct your answer:</span><br/>
         <em>
-            In a previous experiment, the co-players’ action was A in about 40 out of 100 cases and B in about 60 out of 100 cases.
+            Typically, co-players choose action <b>A</b> in about {{ group.green_balls }} out of 100 cases and action <b>B</b> in about {{ group.red_balls }} out of 100 cases.
         </em>
     </p>
     <hr/>

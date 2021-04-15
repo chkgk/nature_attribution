@@ -4,7 +4,7 @@ from otree.api import Currency as c
 
 class Survey(Page):
     form_model = 'player'
-    form_fields = ['age', 'gender', 'education', 'major', 'risk']
+    form_fields = ['age', 'gender', 'education', 'major', 'risk', 'comments']
 
     def is_displayed(self):
         return not self.participant.vars.get('dropout', False)

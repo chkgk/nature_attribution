@@ -39,11 +39,11 @@ class Comprehension2(Page):
 
 class ComprehensionDropout(Page):
     def is_displayed(self):
-        return self.player.c_attempts1 + self.player.c_attempts2 >= 4
+        return self.player.c_attempts1 + self.player.c_attempts2 > Constants.max_quiz_attempts + 2
 
     def vars_for_template(self):
         return {
-            'attempts': self.player.c_attempts1 + self.player.c_attempts2 - 1,
+            'attempts': self.player.c_attempts1 + self.player.c_attempts2 - 2,
             'experimenter_name': self.session.config.get('experimenter_name', 'Christian Koenig'),
             'experimenter_email': self.session.config.get('experimenter_email', 'christian.koenig@uibk.ac.at'),
         }
