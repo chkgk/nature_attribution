@@ -26,7 +26,7 @@ class Subsession(BaseSubsession):
     def creating_session(self):
         for player in self.get_players():
             # set all variables on the player so that they are included in exports
-            player.nc_treatment = self.session.vars['nc_treatment']
+            player.treatment = self.session.vars['treatment']
             player.wtp_treatment = self.session.vars['wtp_treatment']
             if self.session.vars['wtp_treatment']:
                 player.wtp_round_1 = self.session.vars['wtp_round_1']
@@ -39,9 +39,9 @@ class Group(BaseGroup):
 
 class Player(BasePlayer):
     # treatment indicators
-    nc_treatment = models.BooleanField(initial=False)
+    treatment = models.StringField()
     wtp_treatment = models.BooleanField(initial=False)
-    wtp_round_1 = models.BooleanField()
+    wtp_round_1 = models.BooleanField(initial=True)
 
     # round payment indicator
     payment_room_1 = models.BooleanField()

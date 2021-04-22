@@ -4,9 +4,9 @@ SESSION_CONFIGS = [
     dict(
         name='noa_complete_RA',
         display_name="NoA Complete Baseline",
-        num_demo_participants=4,
+        num_demo_participants=8,
         app_sequence=['noa_intro', 'noa_room1', 'noa_room1_feedback', 'noa_room2', 'noa_room2_feedback', 'noa_outro'],
-        treatment='RA',  # RA, RA_NC, RA_NC_WTP1, RA_NC_WTP2
+        treatment='BL',  # BL, IM, FI
         max_pay=3,  # x+y
         red_balls=40,  # p=0.4
         green_balls=60,
@@ -15,9 +15,9 @@ SESSION_CONFIGS = [
     dict(
         name='noa_complete_RA_NC_WTP1',
         display_name="NoA Complete Interim",
-        num_demo_participants=4,
+        num_demo_participants=8,
         app_sequence=['noa_intro', 'noa_room1', 'noa_room1_feedback', 'noa_room2', 'noa_room2_feedback', 'noa_outro'],
-        treatment='RA_NC_WTP1',  # RA, RA_NC, RA_NC_WTP1, RA_NC_WTP2
+        treatment='IM',  # BL, IM, FI
         max_pay=3,  # x+y
         red_balls=40,  # p=0.6
         green_balls=60,
@@ -26,9 +26,9 @@ SESSION_CONFIGS = [
     dict(
         name='noa_complete_RA_NC_WTP2',
         display_name="NoA Complete Final",
-        num_demo_participants=4,
+        num_demo_participants=8,
         app_sequence=['noa_intro', 'noa_room1', 'noa_room1_feedback', 'noa_room2', 'noa_room2_feedback', 'noa_outro'],
-        treatment='RA_NC_WTP2',  # RA, RA_NC, RA_NC_WTP1, RA_NC_WTP2
+        treatment='FI',  # BL, IM, FI
         max_pay=3,  # x+y
         red_balls=40,  # p=0.6
         green_balls=60,

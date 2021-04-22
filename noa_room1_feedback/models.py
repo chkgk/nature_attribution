@@ -45,7 +45,7 @@ class Subsession(BaseSubsession):
 
         for player in self.get_players():
             # set all variables on the player so that they are included in exports
-            player.nc_treatment = self.session.vars['nc_treatment']
+            player.treatment = self.session.vars['treatment']
             player.wtp_treatment = self.session.vars['wtp_treatment']
             if self.session.vars['wtp_treatment']:
                 player.wtp_round_1 = self.session.vars['wtp_round_1']
@@ -75,11 +75,11 @@ class Group(BaseGroup):
 
 class Player(BasePlayer):
     # treatment indicators
-    nc_treatment = models.BooleanField(initial=False)
+    treatment = models.StringField()
     wtp_treatment = models.BooleanField(initial=False)
-    wtp_round_1 = models.BooleanField()
+    wtp_round_1 = models.BooleanField(initial=True)
 
-    wants_to_know = models.BooleanField()
+    wants_to_know = models.BooleanField(initial=False)
 
     # round payment indicator
     payment_room_1 = models.BooleanField()
@@ -89,7 +89,7 @@ class Player(BasePlayer):
     partner_id_in_subsession = models.IntegerField()
     game_payoff = models.CurrencyField()
     info_price = models.CurrencyField()
-    info_bought = models.BooleanField()
+    info_bought = models.BooleanField(initial=False)
     wtp_payment = models.CurrencyField()
     wtp_result = models.CurrencyField()
     dropped_out = models.BooleanField(initial=False)
@@ -128,15 +128,15 @@ class Player(BasePlayer):
 
     def bdm_mechanism(self):
         self.info_price = c(Constants.min_price + (random.random() * (Constants.max_price - Constants.min_price)))
-        if self.wtp_payment >= self.info_price:
-            self.info_bought = True
-            self.wtp_result = Constants.max_price - self.info_price
-        else:
-            self.info_bought = False
-            self.wtp_result = Constants.max_price
+        self.info_bought = self.wtp_payment >= self.info_price
 
     def set_room_payoff(self):
-        if self.wtp_treatment and self.wtp_round_1 and self.wants_to_know:
+        if self.info_bought and self.wtp_round_1:
+            self.wtp_result = Constants.max_price - self.info_price
+        else:
+            self.wtp_result = Constants.max_price
+
+        if self.wtp_treatment:
             self.participant.vars['room_payoff_1'] = self.game_payoff + self.wtp_result
         else:
             self.participant.vars['room_payoff_1'] = self.game_payoff

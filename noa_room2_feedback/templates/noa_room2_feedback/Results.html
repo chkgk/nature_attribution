@@ -19,7 +19,7 @@
     <p>
         Your action was <b>{{ own_action }}</b>.
     </p>
-    {% if player.nc_treatment %}
+    {% if player.treatment == 'FI' %}
         <p>
             Based on
             <ul>
@@ -27,21 +27,19 @@
                 <li>your own action, and</li>
                 <li>your co-player's action,</li>
             </ul>
-            you earned <b>{{ player.game_payoff }}</b> if this room is selected for payment.
+            you earn <b>{{ player.game_payoff }}</b> if this room is selected for payment.
         </p>
     {% else %}
         <p>
             Your co-player's action was <b>{{ others_action }}</b>.<br>
-            The ball drawn from the urn was <b>{{ ball_color }}</b>.
-        </p>
-        <p>
-            As a result you earned <b>{{ player.game_payoff }}</b> if this room is selected for payment.
+            The ball drawn from the urn was <b>{{ ball_color }}</b>.<br>
+            As a result you earn <b>{{ player.game_payoff }}</b> if this room is selected for payment.
         </p>
     {% endif %}
 
     {% if player.wtp_treatment and not player.wtp_round_1 %}
         <p>
-            Before you proceed to the second round, you can find out which action your co-player took and the color of the ball that was drawn. 
+            Before you proceed, you can find out which action your co-player took and the color of the ball that was drawn. 
         </p>
         <p>
             Would you like to know the color of the ball drawn and the action your co-player took?

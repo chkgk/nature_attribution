@@ -56,10 +56,10 @@ class Subsession(BaseSubsession):
         if not treatment:
             raise Exception('Treatment not set')
 
-        self.session.vars['nc_treatment'] = 'NC' in treatment
-        if 'WTP' in treatment:
+        self.session.vars['treatment'] = treatment
+        if treatment in ['IM', 'FI']:
             self.session.vars['wtp_treatment'] = True
-            self.session.vars['wtp_round_1'] = 'WTP1' in treatment
+            self.session.vars['wtp_round_1'] = treatment == 'IM'
         else:
             self.session.vars['wtp_treatment'] = False
 
@@ -67,7 +67,7 @@ class Subsession(BaseSubsession):
             player.participant.vars['payment_room_1'] = random.randint(1, 2) == 1
 
             # set all variables on the player so that they are included in exports
-            player.nc_treatment = self.session.vars['nc_treatment']
+            player.treatment = self.session.vars['treatment']
             player.wtp_treatment = self.session.vars['wtp_treatment']
             if self.session.vars['wtp_treatment']:
                 player.wtp_round_1 = self.session.vars['wtp_round_1']
@@ -82,8 +82,8 @@ class Group(BaseGroup):
 
 
 class Player(BasePlayer):
-    # treatment indicators
-    nc_treatment = models.BooleanField(initial=False)
+    # treatments
+    treatment = models.StringField()
     wtp_treatment = models.BooleanField(initial=False)
     wtp_round_1 = models.BooleanField()
 

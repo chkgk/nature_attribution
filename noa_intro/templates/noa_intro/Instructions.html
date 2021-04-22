@@ -22,15 +22,9 @@
         </ol>
     </p>
     
-    {% if player.nc_treatment %}
-        <p>
-            The player and the co-player take one of two actions, either <b>A</b> or <b>B</b>. The urn from which the ball is drawn contains {{ group.red_balls }} <b>red</b> balls and {{ group.green_balls }} <b>green</b> balls. Both player and co-player learn their payoff at the end of the round.
-        </p>
-    {% else %}
-        <p>
-            The player and the co-player take one of two actions, either <b>A</b> or <b>B</b>. The urn from which the ball is drawn contains {{ group.red_balls }} <b>red</b> balls and {{ group.green_balls }} <b>green</b> balls. Both player and co-player learn the color of the draw and the other player’s action at the end of the round.
-        </p>
-    {% endif %}
+    <p>
+        The player and the co-player take one of two actions, either <b>A</b> or <b>B</b>. The urn from which the ball is drawn contains {{ group.red_balls }} <b>red</b> balls and {{ group.green_balls }} <b>green</b> balls. Both player and co-player learn their payoff at the end of the round.
+    </p>
     
     
     <p>
