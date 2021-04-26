@@ -51,7 +51,7 @@ SESSION_CONFIG_DEFAULTS = {
         description='Participate in a game and a short survey. Please note that the task is to be completed within 10-15 minutes as you are matched with a co-player.',
         frame_height=700,
         template='noa_intro/mturk_template.html',
-        minutes_allotted_per_assignment=20,
+        minutes_allotted_per_assignment=15,
         expiration_hours=3,
         qualification_requirements=[
             {
