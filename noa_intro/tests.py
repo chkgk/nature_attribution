@@ -8,7 +8,7 @@ import random
 class PlayerBot(Bot):
     def play_round(self):
         c_attempts1 = random.randint(1, 3)
-        c_attempts2 = random.randint(1, 3)
+        c_attempts2 = random.randint(1, 2)
 
         yield pages.Introduction
         yield pages.Instructions
@@ -26,5 +26,6 @@ class PlayerBot(Bot):
             'c_attempts2': c_attempts2
         }, check_html=False)
 
+        # Adjust random number generator to actually hit this page. However, it causes bots to get stuck (as inended).
         if c_attempts1 + c_attempts2 > 5:
             yield Submission(pages.ComprehensionDropout, check_html=False)

@@ -13,6 +13,9 @@ class Survey(Page):
         if values['education'] >= 2 and not values['major'].strip():
             return 'Please indicate your major.'
 
+    def before_next_page(self):
+        self.player.collect_data()
+
 
 class LastPage(Page):
     def vars_for_template(self):

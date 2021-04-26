@@ -139,3 +139,7 @@ class Player(BasePlayer):
         choices=[(False, 'A'), (True, 'B')],
         widget=widgets.RadioSelect(),
         label='Which action do you choose?')
+
+    def set_data(self):
+        self.participant.vars['c_attempts1'] = self.c_attempts1
+        self.participant.vars['c_attempts2'] = self.c_attempts2

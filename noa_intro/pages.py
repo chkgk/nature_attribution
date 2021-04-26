@@ -37,6 +37,10 @@ class Comprehension2(Page):
             'c7_solution': Constants.comprehension_solutions['c7_payoff_ba_green'],
         }
 
+    def before_next_page(self):
+        self.player.set_data()
+
+
 class ComprehensionDropout(Page):
     def is_displayed(self):
         return self.player.c_attempts1 + self.player.c_attempts2 > Constants.max_quiz_attempts + 2

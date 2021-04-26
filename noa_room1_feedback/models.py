@@ -101,11 +101,12 @@ class Player(BasePlayer):
     def set_partner_action(self):
         if self.dropped_out:
             return
-        self.action = self.participant.vars.get('action1_b')
+        self.action = self.participant.vars.get('action_b_r1')
         partner = self.get_others_in_group()[0]
         self.partner_id_in_subsession = partner.id_in_subsession
         self.participant.vars["partner_1"] = self.partner_id_in_subsession
-        self.other_b_r1 = partner.participant.vars.get('action1_b')
+        self.other_b_r1 = partner.participant.vars.get('action_b_r1')
+        self.participant.vars['other_b_r1'] = self.other_b_r1
 
     def calculate_game_round_payoff(self):
         if not self.dropped_out:

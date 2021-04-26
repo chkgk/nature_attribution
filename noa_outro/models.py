@@ -84,3 +84,41 @@ class Player(BasePlayer):
     )
 
     comments = models.LongStringField(label="Do you have any comments about this study?", blank=True)
+
+    c_attempts1 = models.IntegerField()
+    c_attempts2 = models.IntegerField()
+
+    action_b_r1 = models.BooleanField()
+    other_b_r1 = models.BooleanField()
+    ball_green_r1 = models.BooleanField()
+    green_red_r1 = models.IntegerField(min=0, max=100)
+    a_or_b_r1 = models.IntegerField(min=0, max=100)
+
+    action_b_r2 = models.BooleanField()
+    other_b_r2 = models.BooleanField()
+    ball_green_r2 = models.BooleanField()
+    green_red_r2 = models.IntegerField(min=0, max=100)
+    a_or_b_r2 = models.IntegerField(min=0, max=100)
+
+    switcher = models.BooleanField()
+
+    def collect_data(self):
+        self.c_attempts1 = self.participant.vars.get('c_attempts1', 0)
+        self.c_attempts2 = self.participant.vars.get('c_attempts2', 0)
+
+        self.action_b_r1 = self.participant.vars.get('action_b_r1', False)
+        self.action_b_r2 = self.participant.vars.get('action_b_r2', False)
+
+        self.other_b_r1 = self.participant.vars.get('other_b_r1', False)
+        self.other_b_r2 = self.participant.vars.get('other_b_r2', False)
+
+        self.ball_green_r1 = self.participant.vars.get('ball_green_1', False)
+        self.ball_green_r2 = self.participant.vars.get('ball_green_2', False)
+
+        self.a_or_b_r1 = self.participant.vars.get('a_or_b_r1', 0)
+        self.a_or_b_r2 = self.participant.vars.get('a_or_b_r2', 0)
+
+        self.green_red_r1 = self.participant.vars.get('green_red_r1', 0)
+        self.green_red_r2 = self.participant.vars.get('green_red_r2', 0)
+
+        self.switcher = self.participant.vars.get('switcher', False)

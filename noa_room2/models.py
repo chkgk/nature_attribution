@@ -79,3 +79,9 @@ class Player(BasePlayer):
     # beliefs
     green_red_r2 = models.IntegerField(min=0, max=100)
     a_or_b_r2 = models.IntegerField(min=0, max=100)
+
+    def determine_switch(self):
+        self.action1_b = self.participant.vars.get('action_b_r1', False)
+        self.switcher = self.action1_b != self.action2_b
+        self.participant.vars["action_b_r2"] = self.action2_b
+        self.participant.vars["switcher"] = self.switcher
