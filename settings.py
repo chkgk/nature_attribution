@@ -2,7 +2,7 @@ from os import environ
 
 SESSION_CONFIGS = [
     dict(
-        name='noa_complete_RA',
+        name='noa_complete_BL',
         display_name="NoA Complete Baseline",
         num_demo_participants=8,
         app_sequence=['noa_intro', 'noa_room1', 'noa_room1_feedback', 'noa_room2', 'noa_room2_feedback', 'noa_outro'],
@@ -13,7 +13,7 @@ SESSION_CONFIGS = [
         announce_q=True
     ),
     dict(
-        name='noa_complete_RA_NC_WTP1',
+        name='noa_complete_IM',
         display_name="NoA Complete Interim",
         num_demo_participants=8,
         app_sequence=['noa_intro', 'noa_room1', 'noa_room1_feedback', 'noa_room2', 'noa_room2_feedback', 'noa_outro'],
@@ -24,7 +24,7 @@ SESSION_CONFIGS = [
         announce_q=True
     ),
     dict(
-        name='noa_complete_RA_NC_WTP2',
+        name='noa_complete_FI',
         display_name="NoA Complete Final",
         num_demo_participants=8,
         app_sequence=['noa_intro', 'noa_room1', 'noa_room1_feedback', 'noa_room2', 'noa_room2_feedback', 'noa_outro'],

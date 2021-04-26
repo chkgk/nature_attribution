@@ -50,7 +50,7 @@ class Player(BasePlayer):
     age = models.IntegerField(
         label='What is your age?',
         min=18,
-        max=99
+        max=120
     )
 
     gender = models.StringField(
