@@ -89,7 +89,7 @@ class Player(BasePlayer):
     wtp_treatment = models.BooleanField(initial=False)
     wtp_round_1 = models.BooleanField(initial=True)
 
-    wants_to_know = models.BooleanField()
+    wants_to_know = models.BooleanField(initial=False)
 
     # round payment indicator
     payment_room_1 = models.BooleanField()
