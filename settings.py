@@ -64,11 +64,6 @@ SESSION_CONFIG_DEFAULTS = {
                 'QualificationTypeId': '3X4G950TG9JM27SOMLGT6VJ1IU8P1C',
                 'Comparator': 'DoesNotExist'
             },
-            # qualification granted by Florian's Experiments
-            {
-                'QualificationTypeId': "3DA2M59FDW8FXK3OTJT76I16UG0RXG",
-                'Comparator': "DoesNotExist",
-            }
         ],
         grant_qualification_id='3X4G950TG9JM27SOMLGT6VJ1IU8P1C',  # to prevent retakes
     )
