@@ -59,13 +59,18 @@ SESSION_CONFIG_DEFAULTS = {
                 'Comparator': 'EqualTo',
                 'LocaleValues': [{'Country': "US"}]
             },
-            # qualification granted by Christian's runs
+            # NoE 2019
             {
-                'QualificationTypeId': '3X4G950TG9JM27SOMLGT6VJ1IU8P1C',
+                'QualificationTypeId': '3D9IV1JJ7UYKUZLV32PDB5KY7011T7',
+                'Comparator': 'DoesNotExist'
+            },
+            # NoA 2021
+            {
+                'QualificationTypeId': '3KOC1385AO2HOJ2HF551PYPM8EABYP',
                 'Comparator': 'DoesNotExist'
             },
         ],
-        grant_qualification_id='3X4G950TG9JM27SOMLGT6VJ1IU8P1C',  # to prevent retakes
+        grant_qualification_id='3KOC1385AO2HOJ2HF551PYPM8EABYP',  # to prevent retakes
     )
 }
 
