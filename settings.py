@@ -59,11 +59,6 @@ SESSION_CONFIG_DEFAULTS = {
                 'Comparator': 'EqualTo',
                 'LocaleValues': [{'Country': "US"}]
             },
-            # NoE 2019
-            {
-                'QualificationTypeId': '3D9IV1JJ7UYKUZLV32PDB5KY7011T7',
-                'Comparator': 'DoesNotExist'
-            },
             # NoA 2021
             {
                 'QualificationTypeId': '3KOC1385AO2HOJ2HF551PYPM8EABYP',
